@@ -1,7 +1,7 @@
 package com.liguo.demo.consume.controller;
 
-import com.liguo.demo.consume.fegin.TestFeginClient;
-import com.liguo.demo.consume.vo.HttpResult;
+import com.liguo.demo.consume.fegin.client.TestFeginClient;
+import com.liguo.demo.consume.pojo.vo.HttpResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

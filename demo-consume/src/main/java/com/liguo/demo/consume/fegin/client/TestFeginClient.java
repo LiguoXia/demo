@@ -1,6 +1,6 @@
-package com.liguo.demo.consume.fegin;
+package com.liguo.demo.consume.fegin.client;
 
-import com.liguo.demo.consume.vo.HttpResult;
+import com.liguo.demo.consume.pojo.vo.HttpResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
