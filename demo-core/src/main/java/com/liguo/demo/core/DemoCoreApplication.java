@@ -1,5 +1,9 @@
 package com.liguo.demo.core;
 
+import com.liguo.demo.core.pojo.covert.CarCovert;
+import com.liguo.demo.core.pojo.dos.CarDO;
+import com.liguo.demo.core.pojo.dto.CarDTO;
+import com.liguo.demo.core.pojo.vo.HttpResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
@@ -23,8 +27,13 @@ public class DemoCoreApplication {
 	}
 
 	@GetMapping("/status")
-	public String status() {
-		return "ok";
+	public HttpResult status() {
+		CarDO carDO = new CarDO();
+		carDO.setId1(1);
+		carDO.setBrand("BWM");
+		carDO.setName("宝马");
+		CarDTO carDTO = CarCovert.INSTANCE.carDO2DTO(carDO);
+		return HttpResult.success(carDTO);
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.liguo.demo.core.vo;
+package com.liguo.demo.core.pojo.vo;
 
 import com.liguo.demo.core.enums.ResultCodeEnum;
 

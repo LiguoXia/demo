@@ -1,24 +1,24 @@
-# ¶Ë¿ÚºÅ
+# ç«¯å£å·
 server:
   port: 8761
-# ÅäÖÃ×¢²á·şÎñÖĞĞÄ
+# é…ç½®æ³¨å†ŒæœåŠ¡ä¸­å¿ƒ
 eureka:
   instance:
     hostname: localhost
-  # ÅäÖÃ¹Ø±Õ×ÔÎÒ±£»¤£¬²¢°´ĞèÅäÖÃEureka ServerÇåÀíÎŞĞ§½ÚµãµÄÊ±¼ä¼ä¸ô¡£Éú²ú»·¾³²»½¨Òé¹Ø±Õ
+  # é…ç½®å…³é—­è‡ªæˆ‘ä¿æŠ¤ï¼Œå¹¶æŒ‰éœ€é…ç½®Eureka Serveræ¸…ç†æ— æ•ˆèŠ‚ç‚¹çš„æ—¶é—´é—´éš”ã€‚ç”Ÿäº§ç¯å¢ƒä¸å»ºè®®å…³é—­
   server:
     enable-self-preservation: false
     eviction-interval-timer-in-ms: 6000
     peer-node-read-timeout-ms: 90000
     response-cache-update-interval-ms: 5000
   client:
-    # ±íÃ÷×Ô¼º²»ÊÇÒ»¸ö¿Í»§¶Ë£¬²¢ÇÒ²»½øĞĞ×Ô×¢²á
+    # è¡¨æ˜è‡ªå·±ä¸æ˜¯ä¸€ä¸ªå®¢æˆ·ç«¯ï¼Œå¹¶ä¸”ä¸è¿›è¡Œè‡ªæ³¨å†Œ
     register-with-eureka: false
     fetch-registry: false
-    # ×¢²áÖĞĞÄµÄ·ÃÎÊµØÖ·
+    # æ³¨å†Œä¸­å¿ƒçš„è®¿é—®åœ°å€
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
-# ÅäÖÃÓ¦ÓÃ³ÌĞòÃû³Æ
+# é…ç½®åº”ç”¨ç¨‹åºåç§°
 spring:
   application:
     name: demo-eureka

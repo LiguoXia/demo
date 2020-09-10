@@ -1,10 +1,17 @@
-# �˿ں�
 server:
-  port: 8001
-
+  port: 8001 # 端口
+  servlet:
+    encoding:
+      charset: UTF-8 # 编码 解决返回乱码
+      force: true
+      enabled: true
+# 应用名
 spring:
   application:
     name: demo-core
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 eureka:
   client:
     service-url:

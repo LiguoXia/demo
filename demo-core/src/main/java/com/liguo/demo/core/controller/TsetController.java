@@ -1,6 +1,6 @@
 package com.liguo.demo.core.controller;
 
-import com.liguo.demo.core.vo.HttpResult;
+import com.liguo.demo.core.pojo.vo.HttpResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
