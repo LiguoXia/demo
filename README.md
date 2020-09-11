@@ -20,7 +20,7 @@ demo-core:核心业务微服务
 
 demo-consume:消费微服务
 
-
+demo-zipkin:链路跟踪服务
 
 工程包模块：
 

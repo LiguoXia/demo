@@ -1,0 +1,21 @@
+server:
+  port: 8988
+spring:
+  application:
+    name: demo-zipkin
+  zipkin:
+    discovery-client-enabled: false
+management:
+  metrics:
+    web:
+      server:
+        request:
+          autotime:
+            enabled: false
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
