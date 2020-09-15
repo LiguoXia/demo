@@ -26,5 +26,9 @@ public class User implements Serializable {
 
     private String name;
 
+    private String like;
+
     private LocalDate date;
+
+
 }

@@ -23,6 +23,7 @@ import java.util.Scanner;
  * @since 0.0.1
  */
 public class Generator {
+
     /**
      * <p>
      * 读取控制台内容
@@ -35,7 +36,7 @@ public class Generator {
         System.out.println(help.toString());
         if (scanner.hasNext()) {
             String ipt = scanner.next();
-            if (StringUtils.isNotEmpty(ipt)) {
+            if (StringUtils.isNotBlank(ipt)) {
                 return ipt;
             }
         }
@@ -50,7 +51,7 @@ public class Generator {
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("xialiguo0212@gmail.com");
+        gc.setAuthor("liguo");
         gc.setOpen(false);
         // gc.setSwagger2(true); 实体属性 Swagger2 注解
         mpg.setGlobalConfig(gc);
@@ -66,8 +67,8 @@ public class Generator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        //pc.setModuleName(scanner("模块名"));
-        pc.setParent("com.liguo.demo.core");
+        pc.setModuleName(scanner("模块名"));
+        pc.setParent("com.liguo.demo");
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -134,7 +135,7 @@ public class Generator {
         // 公共父类
         strategy.setSuperControllerClass("");
         // 写于父类中的公共字段
-        strategy.setSuperEntityColumns("");
+        strategy.setSuperEntityColumns("id");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
