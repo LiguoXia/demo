@@ -1,5 +1,5 @@
 server:
-  port: 8011 # 端口
+  port: 8000 # 端口
   servlet:
     encoding:
       charset: UTF-8 # 编码 解决返回乱码
@@ -16,3 +16,13 @@ eureka:
   client:
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka
+# 网关配置, 网关IP:网关端口/v1/**  >>> 微服务:端口/**
+zuul:
+  routes:
+    demo-core: /v1/**
+  debug:
+    request: true  #如果设置了这个，默认所有的请求都会debug
+    include-debug-header: true
+logging:
+  level:
+    com.netflix: DEBUG
