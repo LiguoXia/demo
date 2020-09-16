@@ -5,6 +5,7 @@ import com.liguo.demo.core.pojo.dos.CarDO;
 import com.liguo.demo.core.pojo.dto.CarDTO;
 import com.liguo.demo.core.pojo.vo.HttpResult;
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,9 +13,10 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
+@SpringBootApplication
 @RestController
 @Slf4j
+@MapperScan(basePackages = "com.liguo.demo.core.dao")
 public class DemoCoreApplication {
 
 	public static void main(String[] args) {
