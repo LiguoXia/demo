@@ -5,7 +5,7 @@ import com.liguo.demo.core.pojo.dos.User;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author jobob
@@ -13,5 +13,6 @@ import com.liguo.demo.core.pojo.dos.User;
  */
 
 public interface IUserService extends IService<User> {
-
+    //返回用户的主要任务
+    String task();
 }

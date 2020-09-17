@@ -19,16 +19,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private String type;
 
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
-
-    private String name;
-
-    private String like;
-
-    private LocalDate date;
-
-
+    private String task;
 }

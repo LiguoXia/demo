@@ -1,6 +1,5 @@
 package com.liguo.demo.core.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liguo.demo.core.dao.UserMapper;
 import com.liguo.demo.core.pojo.dos.User;
@@ -15,7 +14,11 @@ import org.springframework.stereotype.Service;
  * @date 2020/9/14
  * @since 0.0.1
  */
-@Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+@Service("teacher")
+public class TeacherServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
+    @Override
+    public String task() {
+        return "教书";
+    }
 }
