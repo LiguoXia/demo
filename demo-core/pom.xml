@@ -16,6 +16,13 @@
 	<description>core for demo</description>
 
 	<dependencies>
+		<!--zipkin链路跟踪服务依赖-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-zipkin</artifactId>
+			<version>2.1.3.RELEASE</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
