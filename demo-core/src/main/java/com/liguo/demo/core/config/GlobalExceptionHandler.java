@@ -1,9 +1,8 @@
 package com.liguo.demo.core.config;
 
 import com.liguo.demo.core.enums.ResultCodeEnum;
-import com.liguo.demo.core.pojo.vo.HttpResult;
+import com.liguo.demo.core.pojo.vo.Result;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.http.ResponseUtil;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -28,12 +27,9 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(value = BizException.class)
-    public HttpResult bizExceptionHandler(HttpServletRequest req, BizException e) {
+    public Result bizExceptionHandler(HttpServletRequest req, BizException e) {
         log.error("发生业务异常！错误码：{},原因是：{}", e.getErrorCode(), e.getErrorMsg());
-        HttpResult httpResult = HttpResult.success();
-        httpResult.setCode(e.getErrorCode());
-        httpResult.setMessage(e.getErrorMsg());
-        return httpResult;
+        return Result.success().setCode(e.getErrorMsg()).setMessage(e.getErrorMsg());
     }
 
     /**
@@ -44,9 +40,9 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(value = NullPointerException.class)
-    public HttpResult exceptionHandler(HttpServletRequest req, NullPointerException e) {
+    public Result exceptionHandler(HttpServletRequest req, NullPointerException e) {
         log.error("发生空指针异常！原因是:", e);
-        return HttpResult.failure(ResultCodeEnum.SERVER_ERROR);
+        return Result.failure(ResultCodeEnum.SERVER_ERROR);
     }
 
 
@@ -58,8 +54,8 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(value = Exception.class)
-    public HttpResult exceptionHandler(HttpServletRequest req, Exception e) {
+    public Result exceptionHandler(HttpServletRequest req, Exception e) {
         log.error("未知异常！原因是:", e);
-        return HttpResult.failure(ResultCodeEnum.SERVER_ERROR);
+        return Result.failure(ResultCodeEnum.SERVER_ERROR);
     }
 }

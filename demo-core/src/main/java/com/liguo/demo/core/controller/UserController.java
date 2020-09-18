@@ -3,7 +3,8 @@ package com.liguo.demo.core.controller;
 
 import com.liguo.demo.core.factory.UserContext;
 import com.liguo.demo.core.pojo.dos.User;
-import com.liguo.demo.core.pojo.vo.HttpResult;
+import com.liguo.demo.core.pojo.vo.Result;
+import com.liguo.demo.core.pojo.vo.Result;
 import com.liguo.demo.core.service.IUserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -27,9 +28,9 @@ public class UserController {
     UserContext userContext;
     @ApiOperation("测试方法")
     @PostMapping("/getUserTask")
-    public HttpResult getUserTask(@ApiParam("用户对象") @RequestBody User user) {
+    public Result getUserTask(@ApiParam("用户对象") @RequestBody User user) {
         log.info("请求参数:{}", user.toString());
         IUserService userService = userContext.getUserService(user.getType());
-        return HttpResult.success(userService.task());
+        return Result.success(userService.task());
     }
 }
