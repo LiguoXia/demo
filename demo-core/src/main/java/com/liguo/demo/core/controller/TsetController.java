@@ -4,6 +4,7 @@ import com.liguo.demo.core.enums.TrafficCodeEnum;
 import com.liguo.demo.core.factory.TrafficModeFactory;
 import com.liguo.demo.core.pojo.vo.Result;
 import com.liguo.demo.core.service.IMailService;
+import com.liguo.demo.core.service.ThreadPoolTestService;
 import com.liguo.demo.core.service.TrafficModeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,12 +29,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class TsetController {
     @Autowired
     private IMailService iMailService;
+    @Autowired
+    private ThreadPoolTestService poolTestService;
 
     @ApiOperation("测试方法")
     @PostMapping("/test")
     public Result test(@ApiParam("用户名") @RequestParam("name") String name) {
         log.info("请求参数:{}", name);
         iMailService.sendSimpleMail("xialiguo0212@163.com", "title", "正文：" + name + "你好!");
+        return Result.success("Helle:" + name + "这是核心服务");
+    }
+
+    @ApiOperation("线程池测试方法")
+    @PostMapping("/test2")
+    public Result test2(@ApiParam("用户名") @RequestParam("name") String name) {
+        log.info("请求参数:{}", name);
+        poolTestService.sayHello();
         return Result.success("Helle:" + name + "这是核心服务");
     }
 

@@ -14,9 +14,9 @@ spring:
     time-zone: GMT+8
   # 数据库设置，时区
   datasource:
-    url: jdbc:mysql://192.168.8.122/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://106.75.157.178/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
     username: root
-    password: 123456
+    password: demo20201001
     hikari:
       max-lifetime: 180000
     # 连接池配置
