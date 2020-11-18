@@ -61,7 +61,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = IllegalArgumentException.class)
     public Result exceptionHandler(HttpServletRequest req, IllegalArgumentException e) {
-        log.error("发生空指针异常！原因是:", e.getMessage());
+        log.error("参数错误:", e.getMessage());
         return Result.DefaultFailure("参数错误:" + e.getMessage());
     }
 
