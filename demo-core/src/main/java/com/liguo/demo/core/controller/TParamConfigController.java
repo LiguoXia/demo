@@ -5,12 +5,15 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.liguo.demo.core.config.BizException;
 import com.liguo.demo.core.pojo.dos.TParamConfig;
 import com.liguo.demo.core.pojo.vo.Result;
+import com.liguo.demo.core.pojo.vo.ValidationResult;
 import com.liguo.demo.core.service.ITParamConfigService;
+import com.liguo.demo.core.util.BeanValidateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -33,6 +36,10 @@ public class TParamConfigController {
     @PostMapping("/save")
     public Result save(@ApiParam("资金计划业务控制对象") @RequestBody TParamConfig tParamConfig) {
         log.info("请求参数:{}", tParamConfig.toString());
+        ValidationResult vr = BeanValidateUtil.validateEntity(tParamConfig);
+        ValidationResult vr1 = BeanValidateUtil.validateProperty(tParamConfig, "paramKey");
+        String errorMsg = BeanValidateUtil.validateReturnMsg(tParamConfig);
+        BeanValidateUtil.validate(tParamConfig);
         try {
             itParamConfigService.save(tParamConfig);
         } catch (Exception e) {

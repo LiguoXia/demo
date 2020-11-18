@@ -3,10 +3,17 @@ package com.liguo.demo.core.config;
 import com.liguo.demo.core.enums.ResultCodeEnum;
 import com.liguo.demo.core.pojo.vo.Result;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 
 /**
  * 全局异常拦截
@@ -45,6 +52,19 @@ public class GlobalExceptionHandler {
         return Result.failure(ResultCodeEnum.SERVER_ERROR);
     }
 
+    /**
+     * 处理空指针的异常
+     *
+     * @param req
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public Result exceptionHandler(HttpServletRequest req, IllegalArgumentException e) {
+        log.error("发生空指针异常！原因是:", e.getMessage());
+        return Result.DefaultFailure("参数错误:" + e.getMessage());
+    }
+
 
     /**
      * 处理其他异常
@@ -57,5 +77,25 @@ public class GlobalExceptionHandler {
     public Result exceptionHandler(HttpServletRequest req, Exception e) {
         log.error("未知异常！原因是:", e);
         return Result.failure(ResultCodeEnum.SERVER_ERROR);
+    }
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public Result handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        BindingResult bindingResult = ex.getBindingResult();
+        StringBuilder sb = new StringBuilder("校验失败:");
+        for (FieldError fieldError : bindingResult.getFieldErrors()) {
+            sb.append(fieldError.getField()).append("：").append(fieldError.getDefaultMessage()).append(" ");
+        }
+        String msg = sb.toString();
+        return Result.DefaultFailure(msg);
+    }
+
+    @ExceptionHandler({ConstraintViolationException.class})
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public Result handleConstraintViolationException(ConstraintViolationException ex) {
+        return Result.DefaultFailure(ex.getMessage());
     }
 }

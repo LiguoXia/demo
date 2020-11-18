@@ -95,6 +95,10 @@ enum:枚举
 
 #### 2.6 代码提交规范
 
+#### 2.7 参数验证方案
+
+https://mp.weixin.qq.com/s/Esg8n3Aqu5moqjJEgTgw1Q
+
 feat：新功能（feature）
 
 fix：修补bug

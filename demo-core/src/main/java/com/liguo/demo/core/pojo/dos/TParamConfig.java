@@ -5,6 +5,8 @@ import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotEmpty;
+
 /**
  * <p>
  * 资金计划业务控制表
@@ -26,11 +28,13 @@ public class TParamConfig implements Serializable {
     /**
      * 参数键
      */
+    @NotEmpty(message = "键值不能为空!")
     private String paramKey;
 
     /**
      * 参数值
      */
+    @NotEmpty(message = "键值不能为空!")
     private String paramValue;
 
     /**
