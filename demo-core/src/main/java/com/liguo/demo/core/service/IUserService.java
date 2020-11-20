@@ -1,7 +1,7 @@
 package com.liguo.demo.core.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.liguo.demo.core.pojo.dos.User;
+import com.liguo.demo.core.pojo.entity.User;
 
 /**
  * <p>

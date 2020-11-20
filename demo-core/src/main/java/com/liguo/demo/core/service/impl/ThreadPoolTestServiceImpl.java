@@ -1,6 +1,6 @@
 package com.liguo.demo.core.service.impl;
 
-import com.liguo.demo.core.config.DemoThreadFactory;
+import com.liguo.demo.core.factory.DemoThreadFactory;
 import com.liguo.demo.core.service.ThreadPoolTestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

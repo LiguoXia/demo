@@ -1,6 +1,6 @@
-package com.liguo.demo.core.pojo.covert;
+package com.liguo.demo.core.pojo.converter;
 
-import com.liguo.demo.core.pojo.dos.CarDO;
+import com.liguo.demo.core.pojo.entity.CarDO;
 import com.liguo.demo.core.pojo.dto.CarDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -8,8 +8,8 @@ import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
-public interface CarCovert {
-    CarCovert INSTANCE = Mappers.getMapper(CarCovert.class);
+public interface CarConverter {
+    CarConverter INSTANCE = Mappers.getMapper(CarConverter.class);
 
     @Mappings({
             @Mapping(source = "id1", target = "id2", defaultValue = "12"),

@@ -3,7 +3,7 @@ package com.liguo.demo.core.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.liguo.demo.core.config.BizException;
-import com.liguo.demo.core.pojo.dos.TParamConfig;
+import com.liguo.demo.core.pojo.entity.TParamConfig;
 import com.liguo.demo.core.pojo.vo.Result;
 import com.liguo.demo.core.pojo.vo.ValidationResult;
 import com.liguo.demo.core.service.ITParamConfigService;
@@ -13,7 +13,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**

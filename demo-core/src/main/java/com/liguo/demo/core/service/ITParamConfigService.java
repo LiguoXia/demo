@@ -1,6 +1,6 @@
 package com.liguo.demo.core.service;
 
-import com.liguo.demo.core.pojo.dos.TParamConfig;
+import com.liguo.demo.core.pojo.entity.TParamConfig;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

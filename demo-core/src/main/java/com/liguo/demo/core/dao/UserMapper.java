@@ -1,7 +1,7 @@
 package com.liguo.demo.core.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.liguo.demo.core.pojo.dos.User;
+import com.liguo.demo.core.pojo.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 

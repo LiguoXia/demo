@@ -1,4 +1,4 @@
-package com.liguo.demo.core.pojo.dos;
+package com.liguo.demo.core.pojo.entity;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
