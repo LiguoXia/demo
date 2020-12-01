@@ -1,9 +1,8 @@
 package com.liguo.demo.core.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liguo.demo.core.dao.UserMapper;
-import com.liguo.demo.core.pojo.dos.User;
+import com.liguo.demo.core.pojo.entity.User;
 import com.liguo.demo.core.service.IUserService;
 import org.springframework.stereotype.Service;
 

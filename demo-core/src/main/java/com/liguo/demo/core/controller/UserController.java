@@ -2,8 +2,7 @@ package com.liguo.demo.core.controller;
 
 
 import com.liguo.demo.core.factory.UserContext;
-import com.liguo.demo.core.pojo.dos.User;
-import com.liguo.demo.core.pojo.vo.Result;
+import com.liguo.demo.core.pojo.entity.User;
 import com.liguo.demo.core.pojo.vo.Result;
 import com.liguo.demo.core.service.IUserService;
 import io.swagger.annotations.ApiOperation;

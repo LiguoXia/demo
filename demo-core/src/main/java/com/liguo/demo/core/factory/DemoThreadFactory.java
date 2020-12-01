@@ -1,4 +1,4 @@
-package com.liguo.demo.core.config;
+package com.liguo.demo.core.factory;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;

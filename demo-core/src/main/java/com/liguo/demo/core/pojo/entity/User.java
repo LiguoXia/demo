@@ -1,8 +1,5 @@
-package com.liguo.demo.core.pojo.dos;
+package com.liguo.demo.core.pojo.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import java.time.LocalDate;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

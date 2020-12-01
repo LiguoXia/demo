@@ -1,7 +1,7 @@
 package com.liguo.demo.core;
 
-import com.liguo.demo.core.pojo.covert.CarCovert;
-import com.liguo.demo.core.pojo.dos.CarDO;
+import com.liguo.demo.core.pojo.converter.CarConverter;
+import com.liguo.demo.core.pojo.entity.CarDO;
 import com.liguo.demo.core.pojo.dto.CarDTO;
 import com.liguo.demo.core.pojo.vo.Result;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,7 +34,7 @@ public class DemoCoreApplication {
 		carDO.setId1(1);
 		carDO.setBrand("BWM");
 		carDO.setName("宝马");
-		CarDTO carDTO = CarCovert.INSTANCE.carDO2DTO(carDO);
+		CarDTO carDTO = CarConverter.INSTANCE.carDO2DTO(carDO);
 		return Result.success(carDTO);
 	}
 

@@ -19,17 +19,22 @@ public class ThreadLocalUtil {
     /**
      * 初始化方式1
      */
-    private static ThreadLocal<List<Map<String, Object>>> THREAD_LOCAL_IST = ThreadLocal.withInitial(() -> Lists.newArrayList());
+    private static final ThreadLocal<List<Map<String, Object>>> THREAD_LOCAL_IST = ThreadLocal.withInitial(() -> Lists.newArrayList());
 
     /**
      * 初始化方式2
      */
-    public static ThreadLocal<String> THREAD_LOCAL = new ThreadLocal<String>() {
+    public static final ThreadLocal<String> THREAD_LOCAL = new ThreadLocal<String>() {
         @Override
         protected String initialValue() {
             return "Test";
         }
     };
+
+    /**
+     * 此类扩展了ThreadLocal，以提供从父线程到子线程的值继承
+     */
+    public static final InheritableThreadLocal<Boolean> isSuccess = new InheritableThreadLocal<>();
 
     /**
      * 返回当前线程List对象

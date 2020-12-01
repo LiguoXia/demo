@@ -1,7 +1,7 @@
 package com.liguo.demo.core.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.liguo.demo.core.pojo.dos.TParamConfig;
+import com.liguo.demo.core.pojo.entity.TParamConfig;
 import org.springframework.stereotype.Component;
 
 /**
