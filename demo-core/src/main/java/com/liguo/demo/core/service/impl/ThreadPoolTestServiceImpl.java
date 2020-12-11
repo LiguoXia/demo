@@ -12,7 +12,12 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * dsc
+ * 多线程开发实例
+ * <p>常用多线程并发，取结果归集的几种实现方案:</p>
+ * <p>Future</p>
+ * <p>FutureTask</p>
+ * <p>CompletionService</p>
+ * <p>CompletableFuture</p>
  *
  * @author xialiguo0212@gmail.com
  * @version 0.0.1
