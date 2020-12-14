@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liguo.demo.core.dao.ThreeFlowMapper">
+    <insert id="batchSave" parameterType="com.liguo.demo.core.pojo.entity.ThreeFlow">
+        INSERT INTO t_three_flow
+        (result,platform_name,custom_name,id_card,sub_account,phone_number,tran_date,tran_time,local_tran_date,money,income,expenditure,balance,tran_type
+        ,tran_desc,other_accounts,other_name,other_id_card,other_phone_number,flag) VALUES
+        <foreach collection="list" item="param" index="index" separator=",">
+            (
+            #{param.result, jdbcType=VARCHAR},
+            #{param.platformName, jdbcType=VARCHAR},
+            #{param.customName, jdbcType=VARCHAR},
+            #{param.idCard, jdbcType=VARCHAR},
+            #{param.subAccount, jdbcType=VARCHAR},
+            #{param.phoneNumber, jdbcType=VARCHAR},
+            #{param.tranDate, jdbcType=VARCHAR},
+            #{param.tranTime, jdbcType=VARCHAR},
+            #{param.localTranDate, jdbcType=VARCHAR},
+            #{param.money, jdbcType=VARCHAR},
+            #{param.income, jdbcType=VARCHAR},
+            #{param.expenditure, jdbcType=VARCHAR},
+            #{param.balance, jdbcType=VARCHAR},
+            #{param.tranType, jdbcType=VARCHAR},
+            #{param.tranDesc, jdbcType=VARCHAR},
+            #{param.otherAccounts, jdbcType=VARCHAR},
+            #{param.otherName, jdbcType=VARCHAR},
+            #{param.otherIdCard, jdbcType=VARCHAR},
+            #{param.otherPhoneNumber, jdbcType=VARCHAR},
+            #{param.flag, jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+</mapper>

@@ -9,12 +9,16 @@ server:
 spring:
   application:
     name: demo-core
+  servlet:
+    multipart:
+      max-file-size : 500MB
+      max-request-size : 500MB
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
   # 数据库设置，时区
   datasource:
-    url: jdbc:mysql://106.75.157.178/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://106.75.157.178:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
     username: root
     password: demo20201001
     hikari:
