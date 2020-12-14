@@ -2,13 +2,22 @@ package com.liguo.demo.core.service.impl;
 
 import com.liguo.demo.core.factory.DemoThreadFactory;
 import com.liguo.demo.core.service.ThreadPoolTestService;
+import com.liguo.demo.core.util.ThreadPoolUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * dsc
+ * 多线程开发实例
+ * <p>常用多线程并发，取结果归集的几种实现方案:</p>
+ * <p>Future</p>
+ * <p>FutureTask</p>
+ * <p>CompletionService</p>
+ * <p>CompletableFuture</p>
  *
  * @author xialiguo0212@gmail.com
  * @version 0.0.1
@@ -47,7 +56,8 @@ public class ThreadPoolTestServiceImpl implements ThreadPoolTestService {
     @Override
     public String sayHello() {
         long startTime = System.currentTimeMillis();
-        CompletableFuture<Void> future = new CompletableFuture<>();
+        List<CompletableFuture<String>> futureList = new ArrayList<>();
+
         for (int i = 0; i < 400; i++) {
             // 生成推导ID
             int finalI = i;
@@ -60,10 +70,10 @@ public class ThreadPoolTestServiceImpl implements ThreadPoolTestService {
                 log.error("线程执行出错", e);
                 return null;
             });
-            //future = CompletableFuture.allOf(deduceTaskFuture);
+            futureList.add(deduceTaskFuture);
         }
         // 阻塞主线程
-        // future.join();
+        ThreadPoolUtil.blockMainThread(futureList);
         log.info("事后凭证推导结束,总笔数:{},总耗时:{} 毫秒.", "10000", System.currentTimeMillis() - startTime);
         // 处理整个批次返回结果
         return "null";
@@ -80,4 +90,45 @@ public class ThreadPoolTestServiceImpl implements ThreadPoolTestService {
         return "hello" + name;
     }
 
+    private void threadTset1() {
+        AtomicInteger successNums = new AtomicInteger(0);
+        AtomicInteger failNums = new AtomicInteger(0);
+        List<String> list = new ArrayList<>();
+        CompletableFuture[] cfArr = list.stream().
+                map(object -> CompletableFuture
+                        .supplyAsync(() -> hello(object), executorService)
+                        .whenComplete((result, th) -> {
+                            if (th != null) {
+                                // 错误统计+1
+                                failNums.incrementAndGet();
+                                // 异常处理
+                                return;
+                            }
+                            // TODO 业务逻辑处理 result
+                            try {
+                                successNums.incrementAndGet();
+                                System.out.println("hello" + result);
+                            } catch (Exception e) {
+                                successNums.decrementAndGet();
+                                failNums.incrementAndGet();
+                            }
+                        })).toArray(CompletableFuture[]::new);
+        // 阻塞
+        CompletableFuture.allOf(cfArr).join();
+    }
+
+    private void threadTest2() throws InterruptedException, ExecutionException {
+        // 用于按照线程池线程执行顺序获取返回结果,执行完返回,非实时异步返回
+        List<String> strs = new ArrayList<>();
+        CompletionService<String> completionService = new ExecutorCompletionService<>(executorService);
+        strs.stream().forEach(str -> completionService.submit(() -> hello(str)));
+//        for (String str : strs) {
+//            completionService.submit(() -> hello(str));
+//        }
+        // 处理线程池线程返回结果
+        for (String str : strs) {
+            String treeNode = completionService.take().get();
+            log.info("线程返回结果:{}", treeNode);
+        }
+    }
 }
