@@ -1,10 +1,13 @@
 package com.liguo.demo.core.controller;
 
 import com.alibaba.excel.EasyExcel;
+import com.liguo.demo.core.listener.PlatformFlowExcelDataListener;
 import com.liguo.demo.core.listener.ThreeFlowExcelDataListener;
+import com.liguo.demo.core.pojo.entity.PlatformFlow;
 import com.liguo.demo.core.pojo.entity.ThreeFlow;
 import com.liguo.demo.core.pojo.vo.Result;
 import com.liguo.demo.core.service.IThreeFlowService;
+import com.liguo.demo.core.service.PlatformFlowService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +22,8 @@ import java.io.IOException;
 public class ExcelController {
     @Autowired
     private IThreeFlowService threeFlowService;
+    @Autowired
+    private PlatformFlowService platformFlowService;
 
     /**
      * 文件上传
@@ -34,6 +39,13 @@ public class ExcelController {
     @ApiOperation(value = "上传经营类资金计划编制", notes = "上传经营类资金计划编制")
     public Result upload( MultipartFile file) throws IOException {
         EasyExcel.read(file.getInputStream(), ThreeFlow.class, new ThreeFlowExcelDataListener(threeFlowService)).sheet().doRead();
+        return Result.success("上传成功!");
+    }
+
+    @PostMapping(value = "/upload2")
+    @ApiOperation(value = "上传经营类资金计划编制", notes = "上传经营类资金计划编制")
+    public Result upload2( MultipartFile file) throws IOException {
+        EasyExcel.read(file.getInputStream(), PlatformFlow.class, new PlatformFlowExcelDataListener(platformFlowService)).sheet().doRead();
         return Result.success("上传成功!");
     }
 }

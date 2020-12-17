@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liguo.demo.core.dao.PlatformFlowMapper">
+    <insert id="batchSave" parameterType="com.liguo.demo.core.pojo.entity.PlatformFlow">
+        INSERT INTO t_platform_flow
+        (third_name,tran_time,account,pay_no,custom_name,id_card,tran_date,getwat_no,amount,done_flag,order_id,tran_type) VALUES
+        <foreach collection="list" item="param" index="index" separator=",">
+            (
+            #{param.thirdName, jdbcType=VARCHAR},
+            #{param.tranTime, jdbcType=VARCHAR},
+            #{param.account, jdbcType=VARCHAR},
+            #{param.payNo, jdbcType=VARCHAR},
+            #{param.customName, jdbcType=VARCHAR},
+            #{param.idCard, jdbcType=VARCHAR},
+            #{param.tranDate, jdbcType=VARCHAR},
+            #{param.getwatNo, jdbcType=VARCHAR},
+            #{param.amount, jdbcType=VARCHAR},
+            #{param.doneFlag, jdbcType=VARCHAR},
+            #{param.orderId, jdbcType=VARCHAR},
+            #{param.tranType, jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+</mapper>

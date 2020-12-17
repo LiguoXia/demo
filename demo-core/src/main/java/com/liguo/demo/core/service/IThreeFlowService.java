@@ -16,4 +16,6 @@ import java.util.List;
 public interface IThreeFlowService extends IService<ThreeFlow> {
 
     void importDate(List<ThreeFlow> threeFlowList);
+
+    void delete();
 }

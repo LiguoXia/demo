@@ -1,11 +1,13 @@
 package com.liguo.demo.core.service.impl;
 
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liguo.demo.core.dao.ThreeFlowMapper;
 import com.liguo.demo.core.factory.DemoThreadFactory;
 import com.liguo.demo.core.pojo.entity.ThreeFlow;
 import com.liguo.demo.core.service.IThreeFlowService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,8 +57,6 @@ public class ThreeFlowServiceImpl extends ServiceImpl<ThreeFlowMapper, ThreeFlow
             new DemoThreadFactory(DEMO_THREAD_NAME),
             new ThreadPoolExecutor.CallerRunsPolicy());
 
-
-
     @Override
     public void importDate(List<ThreeFlow> threeFlowList) {
         List<ThreeFlow> threeFlows = new ArrayList<>();
@@ -71,5 +71,46 @@ public class ThreeFlowServiceImpl extends ServiceImpl<ThreeFlowMapper, ThreeFlow
         });
 //        saveBatch(threeFlowList);
         //threeFlowMapper.batchSave(threeFlowList);
+    }
+
+    @Override
+    public void delete() {
+        int i = 0;
+        LambdaQueryChainWrapper<ThreeFlow> wrapper = this.lambdaQuery();
+        wrapper.eq(ThreeFlow::getFlag, "冲正交易");
+        List<ThreeFlow> threeFlows = wrapper.list();
+        for (ThreeFlow threeFlow : threeFlows) {
+            LambdaQueryChainWrapper<ThreeFlow> wrapper2 = this.lambdaQuery();
+            wrapper2.eq(StringUtils.isNoneBlank(threeFlow.getCustomName()), ThreeFlow::getCustomName, threeFlow.getCustomName());
+            wrapper2.eq(StringUtils.isNoneBlank(threeFlow.getIdCard()), ThreeFlow::getIdCard, threeFlow.getIdCard());
+            wrapper2.eq(StringUtils.isNoneBlank(threeFlow.getSubAccount()), ThreeFlow::getSubAccount, threeFlow.getSubAccount());
+            wrapper2.eq(StringUtils.isNoneBlank(threeFlow.getPhoneNumber()), ThreeFlow::getPhoneNumber, threeFlow.getPhoneNumber());
+            wrapper2.eq(StringUtils.isNoneBlank(threeFlow.getTranDate()), ThreeFlow::getTranDate, threeFlow.getTranDate());
+            wrapper2.eq(StringUtils.isNoneBlank(threeFlow.getMoney()), ThreeFlow::getMoney, "-" + threeFlow.getMoney());
+            wrapper2.eq(StringUtils.isNoneBlank(threeFlow.getTranType()), ThreeFlow::getTranType, threeFlow.getTranType());
+            wrapper2.eq(StringUtils.isNoneBlank(threeFlow.getOtherAccounts()), ThreeFlow::getOtherAccounts, threeFlow.getOtherAccounts());
+            wrapper2.eq(StringUtils.isNoneBlank(threeFlow.getOtherIdCard()), ThreeFlow::getOtherIdCard, threeFlow.getOtherIdCard());
+            wrapper2.eq(StringUtils.isNoneBlank(threeFlow.getOtherPhoneNumber()), ThreeFlow::getOtherPhoneNumber, threeFlow.getOtherPhoneNumber());
+            List<ThreeFlow> threeFlows2 = wrapper2.list();
+            if (threeFlows2 == null || threeFlows2.size() <= 0) {
+                log.info("冲正{}没有找到原交易", threeFlow.toString());
+                continue;
+            }
+
+            ThreeFlow threeFlowZ = threeFlows2.get(0);
+            // 删除正交易
+            ThreeFlow threeFlow1 = new ThreeFlow();
+            threeFlow1.setId(threeFlowZ.getId());
+            threeFlow1.setDelFlag(Long.valueOf(i));
+            this.updateById(threeFlow1);
+            // 删除冲正交易
+            ThreeFlow threeFlow2 = new ThreeFlow();
+            threeFlow2.setId(threeFlow.getId());
+            threeFlow2.setDelFlag(Long.valueOf(i));
+            this.updateById(threeFlow2);
+            log.info("冲正：{}", threeFlow.toString());
+            log.info("原来：{}", threeFlows2.get(0).toString());
+            i++;
+        }
     }
 }
