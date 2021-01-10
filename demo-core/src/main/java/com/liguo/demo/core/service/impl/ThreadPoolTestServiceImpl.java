@@ -42,8 +42,13 @@ public class ThreadPoolTestServiceImpl implements ThreadPoolTestService {
      * <p>通过DubheThreadFactory创建线程并指定线程名</p>
      * <p>拒绝策略为调用方立即执行方法</p>
      * ThreadPoolExecutor ExecutorService区别
+     *
+     * 知识点：
+     * 1.LinkedBlockingQueue 不设置大小为无界队列，线程会一直是核心线程数，若设置大小，则同ArrayBlockingQueue
+     * 2.ArrayBlockingQueue为有界队列,且必须设置大小，若线程池任务大于核心线程数，则添加到任务队列，若任务队列满了则开启新线程，直到达到最大
+     *   线程数，这些非核心线程存活时间由keepAliveTime和timeUnit控制，若希望复用，则稍微调大
      */
-    private ThreadPoolExecutor executorService = new ThreadPoolExecutor(
+    private final ThreadPoolExecutor executorService = new ThreadPoolExecutor(
             corePoolSize,
             maximumPoolSize,
             keepAliveTime,
