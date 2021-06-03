@@ -91,6 +91,7 @@ public class ThreeFlowServiceImpl extends ServiceImpl<ThreeFlowMapper, ThreeFlow
             wrapper2.eq(StringUtils.isNoneBlank(threeFlow.getOtherAccounts()), ThreeFlow::getOtherAccounts, threeFlow.getOtherAccounts());
             wrapper2.eq(StringUtils.isNoneBlank(threeFlow.getOtherIdCard()), ThreeFlow::getOtherIdCard, threeFlow.getOtherIdCard());
             wrapper2.eq(StringUtils.isNoneBlank(threeFlow.getOtherPhoneNumber()), ThreeFlow::getOtherPhoneNumber, threeFlow.getOtherPhoneNumber());
+            wrapper2.isNull(ThreeFlow::getDelFlag);
             List<ThreeFlow> threeFlows2 = wrapper2.list();
             if (threeFlows2 == null || threeFlows2.size() <= 0) {
                 log.info("冲正{}没有找到原交易", threeFlow.toString());

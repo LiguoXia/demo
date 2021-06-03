@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liguo.demo.core.dao.Ct3Mapper">
+    <insert id="batchSave" parameterType="com.liguo.demo.core.pojo.entity.Ct3">
+        INSERT INTO t_ct_flow
+        (xuhao,heduiqingk,jiaoyirq,jine,duifangzhm,duifangzh,dfkhh) VALUES
+        <foreach collection="list" item="param" index="index" separator=",">
+            (
+            #{param.xuhao, jdbcType=VARCHAR},
+            #{param.heduiqingk, jdbcType=VARCHAR},
+            #{param.jiaoyirq, jdbcType=VARCHAR},
+            #{param.jine, jdbcType=VARCHAR},
+            #{param.duifangzhm, jdbcType=VARCHAR},
+            #{param.duifangzh, jdbcType=VARCHAR},
+            #{param.dfkhh, jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+</mapper>
