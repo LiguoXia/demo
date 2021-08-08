@@ -10,6 +10,7 @@ import com.liguo.demo.core.pojo.converter.CarConverter;
 import com.liguo.demo.core.pojo.entity.CarDO;
 import com.liguo.demo.core.pojo.dto.CarDTO;
 import com.liguo.demo.core.pojo.vo.Result;
+import com.liguo.demo.core.thread.creatthread.ThreadUtil;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
@@ -23,9 +24,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 
+// 会自动加载当前类下所有文件
 @SpringBootApplication
 @RestController
 @Slf4j
+// 可以指定要扫描的Mapper类的包的路径
 @MapperScan(basePackages = "com.liguo.demo.core.dao")
 public class DemoCoreApplication {
 
@@ -41,11 +44,14 @@ public class DemoCoreApplication {
 
     @GetMapping("/status")
     public Result status() {
+        log.info("comming");
+        ThreadUtil.sleep(600000);
         CarDO carDO = new CarDO();
         carDO.setId1(1);
         carDO.setBrand("BWM");
         carDO.setName("宝马");
         CarDTO carDTO = CarConverter.INSTANCE.carDO2DTO(carDO);
+        log.info("complete");
         return Result.success(carDTO);
     }
 
