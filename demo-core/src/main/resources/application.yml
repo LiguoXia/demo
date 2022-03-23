@@ -18,9 +18,13 @@ spring:
     time-zone: GMT+8
   # 数据库设置，时区
   datasource:
-    url: jdbc:mysql://106.75.157.178:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    #url: jdbc:mysql://tidb.6713cf6b.3ce9e91.ap-northeast-1.prod.aws.tidbcloud.com:4000/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    #username: root
+    #password: demo20201001
+    #url: jdbc:mysql://106.75.157.178:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://tidb.6713cf6b.3ce9e91.ap-northeast-1.prod.aws.tidbcloud.com:4000/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
     username: root
-    password: demo20201001
+    password: xst940212
     hikari:
       max-lifetime: 180000
     # 连接池配置

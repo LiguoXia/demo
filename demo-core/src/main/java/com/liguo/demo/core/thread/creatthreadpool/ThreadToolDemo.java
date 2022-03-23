@@ -5,6 +5,7 @@ import com.liguo.demo.core.thread.creatthread.RunnableDemo;
 import com.liguo.demo.core.thread.creatthread.ThreadUtil;
 import com.liguo.demo.core.util.ThreadPoolUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -230,5 +231,16 @@ public class ThreadToolDemo {
             String treeNode = completionService.take().get();
             log.info("线程返回结果:{}", treeNode);
         }
+    }
+
+    /**
+     * 开启异步线程
+     */
+    public void beginAsyncThread() {
+        new Thread(() -> asyncThread(), "thread-name").start();
+    }
+
+    private void asyncThread() {
+        log.info("异步线程");
     }
 }

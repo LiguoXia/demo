@@ -52,7 +52,7 @@ public class Result<T> implements Serializable {
     }
 
     /**
-     * 错误犯坏
+     * 错误返回
      */
     public Result() {
         this.code = "-1";
