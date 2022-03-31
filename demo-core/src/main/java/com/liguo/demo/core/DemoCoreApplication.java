@@ -7,8 +7,8 @@ import cn.smallbun.screw.core.engine.EngineTemplateType;
 import cn.smallbun.screw.core.execute.DocumentationExecute;
 import cn.smallbun.screw.core.process.ProcessConfig;
 import com.liguo.demo.core.pojo.converter.CarConverter;
-import com.liguo.demo.core.pojo.entity.CarDO;
 import com.liguo.demo.core.pojo.dto.CarDTO;
+import com.liguo.demo.core.pojo.entity.CarDO;
 import com.liguo.demo.core.pojo.vo.Result;
 import com.liguo.demo.core.thread.creatthread.ThreadUtil;
 import com.zaxxer.hikari.HikariConfig;
@@ -18,6 +18,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +29,8 @@ import java.util.ArrayList;
 @SpringBootApplication
 @RestController
 @Slf4j
+// 开启异步线程@Async注解能够生效
+@EnableAsync
 // 可以指定要扫描的Mapper类的包的路径
 @MapperScan(basePackages = "com.liguo.demo.core.dao")
 public class DemoCoreApplication {

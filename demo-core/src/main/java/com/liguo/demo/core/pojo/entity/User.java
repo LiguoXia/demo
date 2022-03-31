@@ -16,6 +16,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class User implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private String type;
 
     private String task;

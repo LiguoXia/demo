@@ -1,4 +1,4 @@
-package com.liguo.demo.core.proxy.cglib;
+package com.liguo.demo.core.test.cglib;
 
 /**
  * dsc

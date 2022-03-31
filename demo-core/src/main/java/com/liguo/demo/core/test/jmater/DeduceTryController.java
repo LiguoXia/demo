@@ -1,5 +1,6 @@
 package com.liguo.demo.core.test.jmater;
 
+import com.example.aspectlogspringbootstarter.aop.AspectLog;
 import com.liguo.demo.core.pojo.vo.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,6 +32,7 @@ public class DeduceTryController {
     @Autowired
     private IDeduceTryService deduceTryService;
 
+    @AspectLog
     @ApiOperation("试推导")
     @PostMapping("tryDeduce")
     public Result<DeduceTryResp> tryDeduce (@ApiParam(value = "试推导参数", required = true) @Validated @RequestBody DeduceTryReq req) throws ExecutionException, InterruptedException {
