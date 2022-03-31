@@ -34,6 +34,7 @@
         <freemarker.version>2.3.30</freemarker.version>
         <mysql.connector.java.version>8.0.21</mysql.connector.java.version>
         <druid.version>1.1.23</druid.version>
+        <druid.starter.version>1.1.23</druid.starter.version>
         <spring.boot.starter.mail.version>2.3.3.RELEASE</spring.boot.starter.mail.version>
         <hibernate.validator.version>6.0.1.Final</hibernate.validator.version>
         <screw.core.version>1.0.5</screw.core.version>
@@ -185,6 +186,13 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
                 <version>${druid.version}</version>
+            </dependency>
+
+            <!-- druid -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.starter.version}</version>
             </dependency>
 
             <!-- StringUtils工具类 -->
