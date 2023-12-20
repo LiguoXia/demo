@@ -72,9 +72,9 @@ public class DemoCoreApplication {
         //数据源
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        hikariConfig.setJdbcUrl("jdbc:mysql://dubhedev-m.dbsit.sfcloud.local:3306/fp");
-        hikariConfig.setUsername("fp");
-        hikariConfig.setPassword("fp@200804");
+        hikariConfig.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/demo");
+        hikariConfig.setUsername("demo");
+        hikariConfig.setPassword("demo");
         //设置可以获取tables remarks信息
         hikariConfig.addDataSourceProperty("useInformationSchema", "true");
         hikariConfig.setMinimumIdle(2);
