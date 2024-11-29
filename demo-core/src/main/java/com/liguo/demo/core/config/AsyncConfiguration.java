@@ -11,7 +11,9 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.Executor;
 
 /**
- * dsc
+ * https://blog.csdn.net/p358278505/article/details/89283320
+ * https://blog.csdn.net/yaomingyang/article/details/108165496
+ * @Async
  *
  * @author xialiguo0212@gmail.com
  * @version 0.0.1

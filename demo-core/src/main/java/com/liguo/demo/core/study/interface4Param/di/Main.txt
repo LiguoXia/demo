@@ -1,0 +1,45 @@
+package com.liguo.demo.core.study.interface4Param.di;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * dsc
+ *
+ * @author xialiguo0212@gmail.com
+ * @version 0.0.1
+ * @date 2024/10/17 9:53
+ * @since 0.0.1
+ */
+public class Main {
+}
+
+public interface UserService {
+    void createUser(String name);
+}
+
+@Service
+public class UserServiceImpl implements UserService {
+    @Override
+    public void createUser(String name) {
+        System.out.println("User " + name + " created.");
+    }
+}
+
+@RestController
+public class UserController {
+    private final UserService userService;
+
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @PostMapping("/createUser")
+    public void createUser(@RequestParam String name) {
+        userService.createUser(name);
+    }
+}

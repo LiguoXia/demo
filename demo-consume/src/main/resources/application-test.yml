@@ -1,0 +1,134 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: demo-consume
+  shardingsphere:
+    datasource:
+      #  数据库名称，可自定义，可以为多个，以逗号隔开，每个在这里定义的库，都要在下面定义连接属性
+      names: ds2019
+      #年份为2019年的库
+      ds2019:
+        #  采用的数据库连接池，druid
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://192.168.18.26:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+        username: liguo
+        password: xlg123456
+        maxActive: 20
+        initialSize: 5
+        maxWait: 60000
+        minIdle: 5
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        #是否缓存preparedStatement，也就是PSCache。在mysql下建议关闭。 PSCache对支持游标的数据库性能提升巨大，比如说oracle。
+        poolPreparedStatements: false
+        #要启用PSCache，-1为关闭 必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true  可以把这个数值配置大一些，比如说100
+        maxOpenPreparedStatements: -1
+        #配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+        filters: stat,wall,log4j2
+        #通过connectProperties属性来打开mergeSql功能；慢SQL记录
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+        #合并多个DruidDataSource的监控数据
+        useGlobalDataSourceStat: true
+        loginUsername: druid
+        loginPassword: druid
+    sharding:
+      default-data-source-name: ds2019
+      #需要拆分的表，可以设置多个
+      tables:
+        #需要进行分表的逻辑表名，用MyBatis或者MyBatis-Plus操作数据库时只需要操作逻辑表即可，xml文件也只需要配置逻辑表
+        t_order:
+          #实际的表结点,下面代表的是ds2019.t_order_0、ds2019.t_order_1、ds2020.t_order_0、ds2020.t_order_1 这几张表
+          actual-data-nodes: ds2019.t_order_$->{0..1}
+
+          table-strategy:
+            # 分表策略，根据自己的需要写的分表策略，这里我是根据car_park_id这个字段的值作为后缀，来确定放到哪张表
+            # 注意这里策略key值需要对应
+            complex:
+              sharding-columns: order_id
+              algorithm-class-name: com.liguo.demo.consume.config.sharding.FpDeduceResultShardingStrategy
+    props:
+      # 是否打印逻辑SQL语句和实际SQL语句，建议调试时打印，在生产环境关闭
+      sql:
+        show: true
+  redis:
+    host: 192.168.18.34
+    port: 6379
+    password: 123456
+
+eureka:
+  client:
+    service-url:
+      #defaultZone: http://127.0.0.1:8761/eureka
+      defaultZone: http://175.178.35.183:8761/eureka
+
+# 全局配置
+#logging:
+#  level:
+#    root: INFO
+#是否输出Mybatis-Plus代执行的SQL语句
+logging:
+  level:
+    # root: info 表示所有
+    # demo: info 这个组
+    com.liguo.demo: debug
+    org.springframework: debug
+  group:
+    demo: com.liguo.demo.consume.controller, com.liguo.demo.consume.service
+# mybatis-plus 日志开启方式之一
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+cartoon:
+  cat:
+    name: "利国"
+    age: 27
+  mouse:
+    name: "杰瑞"
+    age: 22
+
+tools:
+  ip:
+    cycle: 30
+    cycleReset: false
+    model: "detail"
+
+rocketmq:
+  consumer:
+    # 可以不指定,指定好像会有问题,消费监听到其他主题数据
+    # group: groupDemo
+    # 一次拉取消息最大值，注意是拉取消息的最大值而非消费最大值
+    pull-batch-size: 10
+    # 设置最大重试次数为 3 次
+    maxReconsumeTimes: 3
+  name-server: 192.168.18.35:9876
+  producer:
+    # 发送同一类消息的设置为同一个group，保证唯一
+    group: groupDemo
+    # 发送消息超时时间，默认3000
+    sendMessageTimeout: 10000
+    # 发送消息失败重试次数，默认2
+    retryTimesWhenSendFailed: 2
+    # 异步消息重试此处，默认2
+    retryTimesWhenSendAsyncFailed: 2
+    # 消息最大长度，默认1024 * 1024 * 4(默认4M)
+    maxMessageSize: 4096
+    # 压缩消息阈值，默认4k(1024 * 4)
+    compressMessageBodyThreshold: 4096
+    # 是否在内部发送失败时重试另一个broker，默认false
+    retryNextServer: false
+# Canal服务IP
+#canal:
+#  server:
+#    host: 192.168.18.29
+#    port: 11111
+#  instance:
+#    destination: instance01
+#    username:
+#    password:

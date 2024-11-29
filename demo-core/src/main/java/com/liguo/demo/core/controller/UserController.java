@@ -5,11 +5,15 @@ import com.liguo.demo.core.factory.UserContext;
 import com.liguo.demo.core.pojo.entity.User;
 import com.liguo.demo.core.pojo.vo.Result;
 import com.liguo.demo.core.service.IUserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 用户信息前端控制器
@@ -19,12 +23,14 @@ import org.springframework.web.bind.annotation.*;
  * @date 2020/9/14
  * @since 0.0.1
  */
+@Api(tags = "用户信息前端控制器")
 @RestController
 @Slf4j
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     UserContext userContext;
+
     @ApiOperation("测试方法")
     @PostMapping("/getUserTask")
     public Result getUserTask(@ApiParam("用户对象") @RequestBody User user) {

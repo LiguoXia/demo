@@ -1,0 +1,18 @@
+{
+  "groups": [
+    {
+      "name": "aspect.log",
+      "type": "com.example.aspectlogspringbootstarter.aop.AspectLogProperties",
+      "sourceType": "com.example.aspectlogspringbootstarter.aop.AspectLogProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "aspect.log.enable",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.example.aspectlogspringbootstarter.aop.AspectLogProperties",
+      "defaultValue": false
+    }
+  ],
+  "hints": []
+}

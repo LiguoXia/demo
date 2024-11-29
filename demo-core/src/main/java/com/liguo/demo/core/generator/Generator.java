@@ -58,11 +58,11 @@ public class Generator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://tidb.6713cf6b.3ce9e91.ap-northeast-1.prod.aws.tidbcloud.com:4000/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8");
+        dsc.setUrl("jdbc:mysql://103.150.181.88:3306/103_150_181_88?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("xst940212");
+        dsc.setPassword("Jisuyunfafafa888,");
         mpg.setDataSource(dsc);
 
         // 包配置

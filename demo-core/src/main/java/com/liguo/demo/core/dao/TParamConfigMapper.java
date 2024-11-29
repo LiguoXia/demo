@@ -2,7 +2,7 @@ package com.liguo.demo.core.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.liguo.demo.core.pojo.entity.TParamConfig;
-import org.springframework.stereotype.Component;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @author liguo
  * @since 2020-09-15
  */
-@Component
+@Mapper
 public interface TParamConfigMapper extends BaseMapper<TParamConfig> {
 
 }

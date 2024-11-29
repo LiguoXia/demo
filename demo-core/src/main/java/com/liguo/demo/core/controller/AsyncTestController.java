@@ -1,8 +1,7 @@
 package com.liguo.demo.core.controller;
 
-import com.example.aspectlogspringbootstarter.aop.AspectLog;
 import com.liguo.demo.core.pojo.vo.Result;
-import com.liguo.demo.core.test.async.AsyncTest;
+import com.liguo.demo.core.study.async.AsyncTest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author liguo
  * @create 2020-09-09
  */
-@Api(description = "测试接口")
+@Api(tags = "异步线程池测试接口")
 @RestController
 @RequestMapping("/asyncTest")
 @Slf4j
@@ -25,7 +24,7 @@ public class AsyncTestController {
     @Autowired
     private AsyncTest asyncTest;
 
-    @AspectLog
+    //@AspectLog
     @ApiOperation("测试方法")
     @PostMapping("/test")
     public Result test() throws Exception {

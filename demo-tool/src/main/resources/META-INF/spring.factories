@@ -1,0 +1,4 @@
+# 自动装配ToolConfig, ToolConfig的@Configuration才会生效
+# 自动装配之后,引入tool模块,即可使用SpringBeanUtil
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.liguo.demo.tool.config.ToolConfig

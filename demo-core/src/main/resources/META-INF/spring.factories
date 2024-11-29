@@ -1,0 +1,8 @@
+# 容器初始化执行,多个容器会执行多次
+org.springframework.context.ApplicationContextInitializer=\
+com.liguo.demo.core.study.extensionPoint.springboot.applicationContextInitializerPkg.CustomApplicationContextInitializer
+
+# Application Listeners
+org.springframework.context.ApplicationListener=\
+com.liguo.demo.core.study.extensionPoint.springboot.listener.MyListener,\
+com.liguo.demo.core.study.extensionPoint.springboot.listener.ApplicationPreparedListener

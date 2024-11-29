@@ -1,0 +1,6 @@
+springboot整合kafka
+https://mp.weixin.qq.com/s/3mwx_DCK8ExwANepk8ysng
+
+https://mp.weixin.qq.com/s/P_7H_G3c7bT71Sx0pn3PXw
+
+@ConditionalOnClass(KafkaTemplate.class) 注解的条件满足是基于类路径上是否存在指定的类，而不是类是否已经被实际加载到 JVM 中

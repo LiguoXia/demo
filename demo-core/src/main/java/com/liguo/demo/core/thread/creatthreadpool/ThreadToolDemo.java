@@ -3,9 +3,7 @@ package com.liguo.demo.core.thread.creatthreadpool;
 import com.liguo.demo.core.factory.DemoThreadFactory;
 import com.liguo.demo.core.thread.creatthread.RunnableDemo;
 import com.liguo.demo.core.thread.creatthread.ThreadUtil;
-import com.liguo.demo.core.util.ThreadPoolUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +62,8 @@ public class ThreadToolDemo {
      * 1.LinkedBlockingQueue 不设置大小为无界队列，线程会一直是核心线程数，若设置大小，则同ArrayBlockingQueue
      * 2.ArrayBlockingQueue为有界队列,且必须设置大小，若线程池任务大于核心线程数，则添加到任务队列，若任务队列满了则开启新线程，直到达到最大
      * 线程数，这些非核心线程存活时间由keepAliveTime和timeUnit控制，若希望复用，则稍微调大
+     * 3、CPU密集型，说明CPU占用率较高 N或者N+1 IO密集型说明数据库或者网络开销磁盘读写比较频繁，设置2N或者2N+1 确保CPU能被充分利用
+     * 4、keepAliveTime 超过核心线程的空闲线程存活时间
      */
     private static final ThreadPoolExecutor executorService = new ThreadPoolExecutor(
             corePoolSize,

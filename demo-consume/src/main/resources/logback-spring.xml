@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- logback-spring.xml 只有在Spring应用程序运行的时候才生效，即带有@SpringBootApplication注解的类启动的时候才会生效。
+如果不是Spring应用程序，而是一个main方法或者一个JUnit的测试方法，要用 logback.xml 来配置。如果没有logback.xml这个文件，
+或者logback.xml放的路径不对，则日志仍然是会打印出来的，而且会按照默认的DEBUG级别打印。这样一运行程序会有大量的DEBUG信息，
+把真正有用的信息都淹没了。 -->
+<!-- 参阅 [Java日志框架体系的前世今生](https://mp.weixin.qq.com/s/cFo13se4iU-l0fO5_rsEHg) -->
+<!-- 参阅 [SpringBoot 日志新姿势](https://cloud.tencent.com/developer/article/2240212) -->
+<!-- 是否开启调试模式 -->
+<configuration debug="true">
+    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
+    <!--    <property name="LOG_HOME" value="/app/deploy/logs"/>-->
+    <property name="LOG_HOME" value="/app/deploy/logs"/>
+
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %5p | ${PID:- } | %X{traceId:--} | %t | %-40.40logger{39}:%L : %m%n"/>
+    <property name="FILE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %5p | ${PID:- } | %X{traceId:--} | %t | %-40.40logger{39}:%L : %m%n"/>
+    <!--输出到控制台 ConsoleAppender-->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!--展示格式 layout-->
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </layout>
+    </appender>
+
+    <!--错误日志-->
+    <appender name="errorFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/demo-consume-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/demo-consume-error-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxFileSize>5120MB</maxFileSize>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!--info日志-->
+    <appender name="infoFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/demo-consume-info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/demo-consume-info-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxFileSize>5120MB</maxFileSize>
+            <MaxHistory>5</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印info日志 -->
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>NEUTRAL</onMismatch>
+        </filter>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印WARN日志 -->
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch> <!-- 如果命中WARN就使用这条规则 -->
+            <onMismatch>DENY</onMismatch> <!-- 如果命中ERROR就禁止这条日志 -->
+        </filter>
+    </appender>
+
+    <!-- 异步输出 -->
+    <appender name="ASYNCINFO" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
+        <queueSize>5120</queueSize>
+        <!-- 添加附加的appender,最多只能添加一个 -->
+        <appender-ref ref="infoFile"/>
+    </appender>
+
+    <!--debug日志-->
+    <appender name="debugFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/demo-consume-debug.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/demo-consume-debug-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxFileSize>5120MB</maxFileSize>
+            <MaxHistory>5</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印info日志 -->
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- 心跳日志（HAProxy 检测应用状态日志）输出到单独文件 -->
+    <appender name="HEARTBEAT_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}/demo-consume-heartbeat.log</File>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${LOG_HOME}/demo-consume-heartbeat.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%message：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %message%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="HEARTBEAT_LOGGER" additivity="false" level="INFO">
+        <appender-ref ref="HEARTBEAT_APPENDER"/>
+    </logger>
+
+    <!-- 日志输出级别 -->
+    <!-- 级别依次为【从高到低】：FATAL > ERROR > WARN > INFO > DEBUG > TRACE  -->
+    <root level="info">
+        <appender-ref ref="debugFile"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="errorFile"/>
+        <appender-ref ref="ASYNCINFO"/>
+    </root>
+</configuration>

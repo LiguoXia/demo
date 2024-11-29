@@ -32,5 +32,6 @@ public class JoinThread {
             }
             log.info("线程A执行完成");
         }).start();
+        log.info("主线程结束");
     }
 }

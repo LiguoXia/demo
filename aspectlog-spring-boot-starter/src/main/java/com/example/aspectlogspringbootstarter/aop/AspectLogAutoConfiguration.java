@@ -11,7 +11,8 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.PriorityOrdered;
 
 /**
- * dsc
+ * 说明：
+ * 1、Spring AOP vs AspectJ
  *
  * @author xialiguo0212@gmail.com
  * @version 0.0.1

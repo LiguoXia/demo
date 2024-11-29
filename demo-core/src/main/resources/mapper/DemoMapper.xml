@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liguo.demo.core.dao.DemoMapper">
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.liguo.demo.core.pojo.entity.Demo">
+        SELECT * FROM t_demo
+    </select>
+
+    <!-- 根据ID查询 useCache 默认是true-->
+    <!-- @link org.apache.ibatis.annotations.Options -->
+    <!-- <select id="selectById" parameterType="int" resultType="com.liguo.demo.core.pojo.entity.Demo" useCache="true"> -->
+    <select id="selectById" parameterType="int" resultType="com.liguo.demo.core.pojo.entity.Demo">
+        SELECT * FROM t_demo WHERE id = #{id}
+    </select>
+
+    <!-- 插入 -->
+    <insert id="insert" parameterType="com.liguo.demo.core.pojo.entity.Demo">
+        INSERT INTO t_demo (int_column, varchar_column, text_column, datetime_column, decimal_column,
+                            float_column, double_column, boolean_column, date_column, time_column,
+                            timestamp_column, blob_column, status, create_time, update_time)
+        VALUES (#{intColumn}, #{varcharColumn}, #{textColumn}, #{datetimeColumn}, #{decimalColumn},
+                #{floatColumn}, #{doubleColumn}, #{booleanColumn}, #{dateColumn}, #{timeColumn},
+                #{timestampColumn}, #{blobColumn}, #{status}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="com.liguo.demo.core.pojo.entity.Demo">
+        UPDATE t_demo
+        SET int_column = #{intColumn},
+            varchar_column = #{varcharColumn},
+            text_column = #{textColumn},
+            datetime_column = #{datetimeColumn},
+            decimal_column = #{decimalColumn},
+            float_column = #{floatColumn},
+            double_column = #{doubleColumn},
+            boolean_column = #{booleanColumn},
+            date_column = #{dateColumn},
+            time_column = #{timeColumn},
+            timestamp_column = #{timestampColumn},
+            blob_column = #{blobColumn},
+            status = #{status},
+            create_time = #{createTime},
+            update_time = #{updateTime}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除 -->
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM t_demo WHERE id = #{id}
+    </delete>
+
+    <!-- 开启二级缓存 -->
+    <!-- 说明：好像只用开启这个就行了，配置文件中的全局配置不生效 -->
+    <!-- <cache eviction="LRU" flushInterval="100000" readOnly="true" size="1024"></cache> -->
+</mapper>

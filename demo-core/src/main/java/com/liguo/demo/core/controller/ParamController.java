@@ -1,7 +1,10 @@
 package com.liguo.demo.core.controller;
 
+import com.liguo.demo.core.config.webmvcconfig.LoginUser;
+import com.liguo.demo.core.config.webmvcconfig.SysUser;
 import com.liguo.demo.core.pojo.Request.ParamRequest;
 import com.liguo.demo.core.pojo.vo.Result;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2021/12/21 8:47
  * @since 0.0.1
  */
+@Api(tags = "前后端各种传参形式")
 @Slf4j
 @RestController
 @RequestMapping("/param")
@@ -28,7 +32,7 @@ public class ParamController {
      * @return Result
      */
     @GetMapping("/getClientInfo")
-    public Result getClientInfo(@RequestParam("param1") String param1, @RequestParam("param2") String param2) {
+    public Result getClientInfo(@LoginUser SysUser sysUser, @RequestParam("param1") String param1, @RequestParam("param2") String param2) {
         return Result.success().setMessage("success");
     }
 

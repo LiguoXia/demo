@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.apache.ibatis.session.defaults.DefaultSqlSession</OriginalElement>
+  <nodes>
+    <node x="700.0" y="685.0">com.baomidou.mybatisplus.core.override.MybatisMapperMethod</node>
+    <node x="0.0" y="874.0">org.apache.ibatis.executor.statement.PreparedStatementHandler</node>
+    <node x="538.2499999999999" y="394.0">org.apache.ibatis.executor.Executor</node>
+    <node x="0.0" y="976.0">org.apache.ibatis.executor.parameter.ParameterHandler</node>
+    <node x="629.5" y="476.0">org.apache.ibatis.executor.CachingExecutor</node>
+    <node x="318.4999999999999" y="476.0">org.apache.ibatis.executor.BaseExecutor</node>
+    <node x="237.0" y="976.0">org.apache.ibatis.executor.resultset.ResultSetHandler</node>
+    <node x="0.0" y="257.5">org.apache.ibatis.session.defaults.DefaultSqlSession</node>
+    <node x="673.0" y="246.0">org.mybatis.spring.SqlSessionTemplate</node>
+    <node x="0.0" y="583.0">org.apache.ibatis.executor.BatchExecutor</node>
+    <node x="314.99999999999994" y="583.0">org.apache.ibatis.executor.ReuseExecutor</node>
+    <node x="431.0" y="0.0">java.lang.AutoCloseable</node>
+    <node x="231.5" y="685.0">org.apache.ibatis.executor.statement.StatementHandler</node>
+    <node x="633.0" y="583.0">org.apache.ibatis.executor.SimpleExecutor</node>
+    <node x="374.0" y="269.0">org.apache.ibatis.session.SqlSessionManager</node>
+    <node x="1000.0" y="164.0">org.springframework.beans.factory.DisposableBean</node>
+    <node x="449.0" y="82.0">java.io.Closeable</node>
+    <node x="13.0" y="767.0">org.apache.ibatis.executor.statement.BaseStatementHandler</node>
+    <node x="444.5" y="164.0">org.apache.ibatis.session.SqlSession</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.apache.ibatis.session.SqlSession" target="java.io.Closeable">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.mybatis.spring.SqlSessionTemplate" target="org.apache.ibatis.session.SqlSession">
+      <point x="-138.0" y="-51.5" />
+      <point x="811.0" y="221.0" />
+      <point x="559.5" y="221.0" />
+      <point x="46.0" y="16.0" />
+    </edge>
+    <edge source="org.apache.ibatis.session.defaults.DefaultSqlSession" target="org.apache.ibatis.session.SqlSession">
+      <point x="0.0" y="-40.0" />
+      <point x="177.0" y="221.0" />
+      <point x="467.5" y="221.0" />
+      <point x="-46.0" y="16.0" />
+    </edge>
+    <edge source="org.apache.ibatis.executor.statement.PreparedStatementHandler" target="org.apache.ibatis.executor.statement.BaseStatementHandler">
+      <point x="0.0" y="-28.5" />
+      <point x="0.0" y="28.5" />
+    </edge>
+    <edge source="org.apache.ibatis.executor.statement.BaseStatementHandler" target="org.apache.ibatis.executor.statement.StatementHandler">
+      <point x="0.0" y="-28.5" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.apache.ibatis.executor.ReuseExecutor" target="org.apache.ibatis.executor.BaseExecutor">
+      <point x="-5.6843418860808015E-14" y="-28.5" />
+      <point x="0.0" y="28.5" />
+    </edge>
+    <edge source="org.apache.ibatis.session.SqlSessionManager" target="org.apache.ibatis.session.SqlSession">
+      <point x="0.0" y="-28.5" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.apache.ibatis.executor.BaseExecutor" target="org.apache.ibatis.executor.Executor">
+      <point x="-5.6843418860808015E-14" y="-28.5" />
+      <point x="463.99999999999983" y="451.0" />
+      <point x="568.2499999999999" y="451.0" />
+      <point x="-30.0" y="16.0" />
+    </edge>
+    <edge source="org.apache.ibatis.executor.CachingExecutor" target="org.apache.ibatis.executor.Executor">
+      <point x="0.0" y="-28.5" />
+      <point x="732.5" y="451.0" />
+      <point x="628.2499999999999" y="451.0" />
+      <point x="30.0" y="16.0" />
+    </edge>
+    <edge source="org.mybatis.spring.SqlSessionTemplate" target="org.springframework.beans.factory.DisposableBean">
+      <point x="138.0" y="-51.5" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="java.io.Closeable" target="java.lang.AutoCloseable">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.apache.ibatis.executor.SimpleExecutor" target="org.apache.ibatis.executor.BaseExecutor">
+      <point x="0.0" y="-28.5" />
+      <point x="784.0" y="558.0" />
+      <point x="560.9999999999998" y="558.0" />
+      <point x="96.99999999999994" y="28.5" />
+    </edge>
+    <edge source="org.apache.ibatis.executor.BatchExecutor" target="org.apache.ibatis.executor.BaseExecutor">
+      <point x="0.0" y="-28.5" />
+      <point x="147.5" y="558.0" />
+      <point x="366.9999999999999" y="558.0" />
+      <point x="-97.0" y="28.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="612.5" y="504.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+        %d{yyyy-MM-dd HH:mm:ss.SSS}：打印日志时间，精确到毫秒。
+        %5p：日志级别，确保字段宽度为 5 个字符（如：INFO, ERROR, DEBUG）。
+        ${PID:- }：打印进程 ID，默认占位符为 -（适合不支持获取 PID 的环境）。
+        %X{traceId:&#45;&#45;}：打印 MDC 中的 traceId，如果没有设置 traceId，默认值为 &#45;&#45;。
+        %t：线程名称。
+        [%C:%L]：显示具体类名和行号，%C 是类的全限定名，%L 是行号。
+        %-40.40logger{39}：打印 logger 名称，限制最大长度为 39 个字符。
+        %m：日志消息。
+        %n：换行符。-->
 <configuration debug="false">
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
-<!--    <property name="LOG_HOME" value="/app/deploy/logs"/>-->
+    <!--    <property name="LOG_HOME" value="/app/deploy/logs"/>-->
     <property name="LOG_HOME" value="/app/deploy/logs"/>
 
     <property name="CONSOLE_LOG_PATTERN"
-              value="%d{yyyy-MM-dd HH:mm:ss.SSS}|%5p|${PID:- }|%X{traceId:--}|%t|%-40.40logger{39} : %m%n"/>
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %5p | ${PID:- } | %X{traceId:--} | %t | %-40.40logger{39}:%L : %m%n"/>
     <property name="FILE_LOG_PATTERN"
-              value="%d{yyyy-MM-dd HH:mm:ss.SSS}|%5p|${PID:- }|%X{traceId:--}|%t|%-40.40logger{39} : %m%n"/>
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %5p | ${PID:- } | %X{traceId:--} | %t | %-40.40logger{39}:%L : %m%n"/>
     <!--输出到控制台 ConsoleAppender-->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <!--展示格式 layout-->
@@ -19,9 +29,9 @@
 
     <!--错误日志-->
     <appender name="errorFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_HOME}/dubhe-basic-error.log</file>
+        <file>${LOG_HOME}/demo-core-error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_HOME}/dubhe-basic-error-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_HOME}/demo-core-error-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
             <maxFileSize>5120MB</maxFileSize>
             <MaxHistory>5</MaxHistory>
         </rollingPolicy>
@@ -37,9 +47,9 @@
 
     <!--info日志-->
     <appender name="infoFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_HOME}/dubhe-basic-info.log</file>
+        <file>${LOG_HOME}/demo-core-info.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_HOME}/dubhe-basic-info-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_HOME}/demo-core-info-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
             <maxFileSize>5120MB</maxFileSize>
             <MaxHistory>5</MaxHistory>
         </rollingPolicy>
@@ -70,9 +80,9 @@
 
     <!--debug日志-->
     <appender name="debugFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_HOME}/dubhe-basic-debug.log</file>
+        <file>${LOG_HOME}/demo-core-debug.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_HOME}/dubhe-basic-debug-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_HOME}/demo-core-debug-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
             <maxFileSize>5120MB</maxFileSize>
             <MaxHistory>5</MaxHistory>
         </rollingPolicy>
@@ -88,13 +98,13 @@
 
     <!-- 心跳日志（HAProxy 检测应用状态日志）输出到单独文件 -->
     <appender name="HEARTBEAT_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${LOG_HOME}/dubhe-basic-heartbeat.log</File>
+        <File>${LOG_HOME}/demo-core-heartbeat.log</File>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>INFO</level>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
-            <FileNamePattern>${LOG_HOME}/dubhe-basic-heartbeat.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>${LOG_HOME}/demo-core-heartbeat.%d{yyyy-MM-dd}.log</FileNamePattern>
             <!--日志文件保留天数-->
             <MaxHistory>30</MaxHistory>
         </rollingPolicy>
@@ -114,4 +124,7 @@
         <appender-ref ref="errorFile"/>
         <appender-ref ref="ASYNCINFO"/>
     </root>
+
+    <!-- 针对具体包或类设置日志级别 -->
+    <!--<logger name="org.springframework" level="TRACE"/>-->
 </configuration>

@@ -1,11 +1,3 @@
-# 端口号
-server:
-  port: 8002
-
 spring:
-  application:
-    name: demo-consume
-eureka:
-  client:
-    service-url:
-      defaultZone: http://127.0.0.1:8761/eureka
+  profiles:
+    active: test

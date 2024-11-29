@@ -2,8 +2,7 @@ package com.liguo.demo.core.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.liguo.demo.core.pojo.entity.Cron;
-import com.liguo.demo.core.pojo.entity.ThreeFlow;
-import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -15,6 +14,7 @@ import java.util.List;
  * @author liguo
  * @since 2020-12-14
  */
+@Mapper
 public interface CronMapper extends BaseMapper<Cron> {
 
     List<Cron> getAll();

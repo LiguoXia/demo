@@ -14,6 +14,7 @@ import com.liguo.demo.core.service.Ct3Service;
 import com.liguo.demo.core.service.CtTxService;
 import com.liguo.demo.core.service.IThreeFlowService;
 import com.liguo.demo.core.service.PlatformFlowService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+@Api(tags = "Excel操作接口")
 @RestController
 @RequestMapping("/core/excel")
 public class ExcelController {

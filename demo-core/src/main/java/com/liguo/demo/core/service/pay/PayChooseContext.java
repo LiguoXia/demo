@@ -1,9 +1,8 @@
 package com.liguo.demo.core.service.pay;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanInitializationException;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.context.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -21,25 +20,14 @@ import java.util.Map;
 public class PayChooseContext implements ApplicationContextAware {
     private static Map<PayTypeEnum, PayService> payServiceBeanMap;
 
-    /**
-     * Set the ApplicationContext that this object runs in.
-     * Normally this call will be used to initialize the object.
-     * <p>Invoked after population of normal bean properties but before an init callback such
-     * as {@link InitializingBean#afterPropertiesSet()}
-     * or a custom init-method. Invoked after {@link ResourceLoaderAware#setResourceLoader},
-     * {@link ApplicationEventPublisherAware#setApplicationEventPublisher} and
-     * {@link MessageSourceAware}, if applicable.
-     *
-     * @param applicationContext the ApplicationContext object to be used by this object
-     * @throws ApplicationContextException in case of context initialization errors
-     * @throws BeansException              if thrown by application context methods
-     * @see BeanInitializationException
-     */
+    // ApplicationContext --> AnnotationConfigServletWebServerApplicationContext
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         Map<String, PayService> map = applicationContext.getBeansOfType(PayService.class);
         payServiceBeanMap = new HashMap<>();
         map.forEach((key, value) -> payServiceBeanMap.put(value.getCode(), value));
+        System.out.println(getClass().getSimpleName() + "所属IoC容器的地址值："
+                + ("@" + Integer.toHexString(applicationContext.hashCode())));
     }
 
     public static <T extends PayService> T getPayMode(PayTypeEnum code) {

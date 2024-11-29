@@ -1,0 +1,9 @@
+https://rocketmq.apache.org/zh/docs/featureBehavior/04transactionmessage/
+https://rocketmq.apache.org/zh/docs/4.x/producer/06message5/
+https://juejin.cn/post/6844904099993878536
+https://juejin.cn/post/7324140839781056524
+
+消费事务性
+Apache RocketMQ 事务消息保证本地主分支事务和下游消息发送事务的一致性，但不保证消息消费结果和上游事务的一致性。因此需要下游业务分支自行保证消息正确处理，建议消费端做好消费重试，如果有短暂失败可以利用重试机制保证最终处理成功。
+
+半事务消息

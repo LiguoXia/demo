@@ -61,7 +61,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = IllegalArgumentException.class)
     public Result exceptionHandler(HttpServletRequest req, IllegalArgumentException e) {
-        log.error("参数错误:", e.getMessage());
+        log.error("参数错误:", e);
         return Result.DefaultFailure("参数错误:" + e.getMessage());
     }
 

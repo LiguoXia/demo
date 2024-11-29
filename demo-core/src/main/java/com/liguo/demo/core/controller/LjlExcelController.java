@@ -1,29 +1,25 @@
 package com.liguo.demo.core.controller;
 
 
-import com.liguo.demo.core.factory.UserContext;
-import com.liguo.demo.core.pojo.entity.ThreeFlow;
-import com.liguo.demo.core.pojo.entity.User;
 import com.liguo.demo.core.pojo.vo.Result;
 import com.liguo.demo.core.service.IThreeFlowService;
-import com.liguo.demo.core.service.IUserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 用户信息前端控制器
+ * 家琳Excel操作接口
  *
  * @author xialiguo0212@gmail.com
  * @version 0.0.1
  * @date 2020/9/14
  * @since 0.0.1
  */
+@Api(tags = "家琳Excel操作接口")
 @RestController
 @Slf4j
 @RequestMapping("/ljl")

@@ -1,0 +1,16 @@
+方式1 配置文件去
+spring:
+	autoconfigure:
+		exclude: rg.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration
+
+# 排除多个
+spring:
+	autoconfigure:
+		exclude:
+			- org.springframework.boot.autoconfigure.task.TaskExecutionAutoconfiguratior
+			- org.springframework.boot.autoconfigure.context.LifecycleAutoConfiguration
+
+方式2 启动类注解去
+@SpringBootApplication(exclude = {PropertyPlaceholderAutoConfiguration.class, DruidDataSourceAutoConfigure.class})
+
+@SpringBootApplication(excludeName = "org.springframework.boot.autoconfigure.task.TaskExecutionAutoconfiguratior, org.springframework.boot.autoconfigure.context.LifecycleAutoConfiguration")

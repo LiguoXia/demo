@@ -18,11 +18,13 @@ spring:
     time-zone: GMT+8
   # 数据库设置，时区
   datasource:
-    #url: jdbc:mysql://tidb.6713cf6b.3ce9e91.ap-northeast-1.prod.aws.tidbcloud.com:4000/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
-    #username: root
-    #url: jdbc:mysql://106.75.157.178:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
-    url: jdbc:mysql://tidb.6713cf6b.3ce9e91.ap-northeast-1.prod.aws.tidbcloud.com:4000/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
-    username: root
+    # url: jdbc:mysql://tidb.6713cf6b.3ce9e91.ap-northeast-1.prod.aws.tidbcloud.com:4000/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    # username: root
+    # password: demo20201001
+    # url: jdbc:mysql://192.168.18.26:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    # url: jdbc:mysql://192.168.18.23:3306/fp?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    # username: liguo
+    # password: xlg123456
     #    hikari:
     #      max-lifetime: 180000
     # 连接池配置
@@ -30,6 +32,10 @@ spring:
     # 下面为连接池的补充设置，应用到上面所有数据源中
     # 初始化大小，最小，最大(以下配置需要引入Druid Spring Boot Starter)
     druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://192.168.18.26:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+      username: liguo
+      password: xlg123456
       # 初始化时建立物理连接的个数
       initial-size: 5
       # 最小连接池数量
@@ -75,10 +81,12 @@ spring:
           slow-sql-millis: 1000
 
   # 邮件设置
+  # https://wx.mail.qq.com/account/index?sid=zQtVR4x0N1oufzczAER0eAAA#/?tab=safety&r=1727576647800
+  # 安全设置 - POP3/IMAP/SMTP/Exchange/CardDAV 服务
   mail:
     host: smtp.qq.com #发送邮件服务器
     username: 1149203467@qq.com #QQ邮箱
-    password:  #客户端授权码
+    password: njtqervtidxhgiib #客户端授权码
     protocol: smtp #发送邮件协议
     properties.mail.smtp.auth: true
     properties.mail.smtp.port: 465 #端口号465或587
@@ -89,13 +97,92 @@ spring:
     properties.mail.smtp.ssl.enable: true
     default-encoding: utf-8
     from: 1149203467@qq.com #与上面的username保持一致,这个是发送邮件方
+  # 生产者kafka配置
+  kafka:
+    producer:
+      # 192.168.217.129:9091,192.168.217.129:9092 # 指定kafka的地址
+      bootstrap-servers: 192.168.18.37:9092
+      # 指定序列化器key
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # 指定序列化器value
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      #      transaction-id-prefix: transaction_id_0 # 事务id前缀
+      # 指定生产者的确认机制
+      acks: all
+      # 批量大小,默认16K
+      batch-size: 16384
+      # 缓冲区大小,默认32M
+      buffer-memory: 33554432
+      # 压缩,默认none,可配置值gzip、snappy、lz4和zstd
+      compression-type: snappy
+      properties:
+        # 自定义消费者拦截器
+        interceptor.classes: com.liguo.demo.core.study.kafka.kafkaProducer.CustomProducerInterceptor
+        linger:
+          # 提交延迟
+          ms: 2000
+        partitioner:
+          # 指定分区器
+          class: org.apache.kafka.clients.producer.RoundRobinPartitioner
+    listener:
+      # 在侦听器容器中运行的线程数，一般设置为 机器数*分区数
+      concurrency: 9
+      # 设置批量消费
+      type: single
+      # RECORD:当每一条记录被消费者监听器（ListenerConsumer）处理之后提交
+      # BATCH:当每一批poll()的数据被消费者监听器（ListenerConsumer）处理之后提交
+      # TIME:当每一批poll()的数据被消费者监听器（ListenerConsumer）处理之后，距离上次提交时间大于TIME时提交
+      # COUNT:当每一批poll()的数据被消费者监听器（ListenerConsumer）处理之后，被处理record数量大于等于COUNT时提交
+      # COUNT_TIME:TIME |　COUNT　有一个条件满足时提交
+      # MANUAL:当每一批poll()的数据被消费者监听器（ListenerConsumer）处理之后, 手动调用Acknowledgment.acknowledge()后提交
+      # MANUAL_IMMEDIATE:手动调用Acknowledgment.acknowledge()后立即提交
+      # ack模式
+      ack-mode: MANUAL_IMMEDIATE
+    # 消费者者kafka配置
+    consumer:
+      bootstrap-servers: 192.168.18.37:9092
+      # 指定反序列化器key
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # 指定反序列化器value
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # 指定默认的消费者组ID
+      group-id: defaultGroup
+      # 开启自动提交offset
+      enable-auto-commit: false
+      # 自动提交offset的时间间隔
+      auto-commit-interval: 1000
+      # 隔离级别
+      isolation-level: read_committed
+      # 单次拉取消息的最大条数
+      max-poll-records: 5
+      # 心跳间隔时间
+      heartbeat-interval: 3000
+      properties:
+        interceptor.classes: com.liguo.demo.core.study.kafka.kafkaConsumer.CustomConsumerInterceptor
+        session:
+          timeout:
+            # 消费会话超时时间（超过这个时间consumer没有发送心跳,就会触发rebalance操作）
+            ms: 10000
+          request:
+            timeout:
+              # 消费请求的超时时间
+              ms: 3000
+      # 当kafka中没有初始offset或offset超出范围时将自动重置offset
+      # earliest:重置为分区中最小的offset;
+      # latest:重置为分区中最新的offset(消费分区中新产生的数据);
+      # none:只要有一个分区不存在已提交的offset,就抛出异常;
+      auto-offset-reset: latest
+  # 启用jdk动态代理为默认
+  # aop:
+    # proxy-target-class: false
 
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     auto-mapping-behavior: full
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  mapper-locations: classpath*:mapper/**/*Mapper.xml
+    # 这个也可以不用加
+  # mapper-locations: classpath*:mapper/**/*Mapper.xml
   global-config:
     # 逻辑删除配置
     db-config:
@@ -103,18 +190,78 @@ mybatis-plus:
       logic-not-delete-value: 1
       # 删除后
       logic-delete-value: 0
+      # id策略 自增
+      id-type: auto
 
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:8761/eureka
+      #defaultZone: http://127.0.0.1:8761/eureka
+      defaultZone: http://175.178.35.183:8761/eureka
+
+rocketmq:
+  consumer:
+    group: groupDemo
+    # 一次拉取消息最大值，注意是拉取消息的最大值而非消费最大值
+    pull-batch-size: 10
+  name-server: 192.168.18.35:9876
+  producer:
+    # 发送同一类消息的设置为同一个group，保证唯一
+    group: groupDemo
+    # 发送消息超时时间，默认3000
+    sendMessageTimeout: 10000
+    # 发送消息失败重试次数，默认2
+    retryTimesWhenSendFailed: 2
+    # 异步消息重试此处，默认2
+    retryTimesWhenSendAsyncFailed: 2
+    # 消息最大长度，默认1024 * 1024 * 4(默认4M)
+    maxMessageSize: 4096
+    # 压缩消息阈值，默认4k(1024 * 4)
+    compressMessageBodyThreshold: 4096
+    # 是否在内部发送失败时重试另一个broker，默认false
+    retryNextServer: false
+#mybatis:
+#  configuration:
+#    # 全局的二级缓存配置开关
+#    cache-enabled: false
+
+# jetCache配置
+jetcache:
+  local:
+    default:
+      type: linkedhashmap
+      keyConvertor: fastjson
+  remote:
+    default:
+      type: redis
+      host: 192.168.18.34
+      port: 6379
+      password: 123456
+      keyConvertor: fastjson
+      # java
+      valueEncoder: java
+      valueDecoder: java
+      poolConfig:
+        maxTotal: 50
+
+# ================================================================== 应用自定义配置 ===========================================
 # 日志切面开关
 aspect:
   log:
     enable: true
-
 # 自定义默认线程池配置
 demo:
   async:
     executor:
       corePoolSize: 5
+  # 控制配置类注入
+  bean:
+    enable: true
+
+cartoon:
+  cat:
+    name: "利国"
+    age: 27
+  mouse:
+    name: "杰瑞"
+    age: 22

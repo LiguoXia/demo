@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 0.0.1
  */
 @Slf4j
-@Api(description = "资金计划业务控制表 前端控制器")
+@Api(tags = "资金计划业务控制表 前端控制器")
 @RestController
 @RequestMapping("/core/pf")
 public class TParamConfigController {

@@ -42,6 +42,7 @@ public class IMailServiceImpl implements IMailService {
      */
     @Override
     @Async
+    // @AspectLog
     public void sendSimpleMail(String to, String subject, String content) {
         log.info("异步执行执行邮件发送方法!");
         SimpleMailMessage message = new SimpleMailMessage();

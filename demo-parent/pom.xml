@@ -5,7 +5,8 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.3.RELEASE</version>
+<!--        <version>2.5.4</version>-->
+       <version>2.3.3.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.liguo.demo</groupId>
@@ -13,13 +14,11 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>demo-parent</name>
-    <description>manage java jar version</description>
+    <description>manage java jar version1</description>
 
     <properties>
         <java.version>1.8</java.version>
         <hutool.version>5.4.1</hutool.version>
-        <starter.version>2.3.3.RELEASE</starter.version>
-        <lombok.version>1.18.12</lombok.version>
         <spring.web.version>5.2.8.RELEASE</spring.web.version>
         <web.version>2.3.3.RELEASE</web.version>
         <eureka.client.version>2.2.4.RELEASE</eureka.client.version>
@@ -39,63 +38,21 @@
         <hibernate.validator.version>6.0.1.Final</hibernate.validator.version>
         <screw.core.version>1.0.5</screw.core.version>
         <easyexcel.version>2.2.7</easyexcel.version>
+        <aviator.version>3.3.0</aviator.version>
+        <kafka.clients.version>2.8.0</kafka.clients.version>
+        <sharding.starter.version>4.1.1</sharding.starter.version>
     </properties>
 
     <!-- 这里进行版本管理，模块需要用到什么需要自己去导 -->
+    <!-- starter在前面的是官方的, 在后面的是第三方的 -->
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter</artifactId>
-                <version>${starter.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-test</artifactId>
-                <version>${starter.version}</version>
-                <scope>test</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.junit.vintage</groupId>
-                        <artifactId>junit-vintage-engine</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
 
             <!-- hutool工具类 -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
-            </dependency>
-
-            <!-- lombok -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
-            <!-- spring-web -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-web</artifactId>
-                <version>${spring.web.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <!-- spring-boot-starter-web 解决main方法启动后就退出问题 -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>${web.version}</version>
             </dependency>
 
             <!-- eureka客户端 -->
@@ -236,17 +193,39 @@
                 <artifactId>demo-tool</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+
+            <!-- aviator引擎 -->
+            <dependency>
+                <groupId>com.googlecode.aviator</groupId>
+                <artifactId>aviator</artifactId>
+                <version>${aviator.version}</version>
+            </dependency>
+
+            <!--kafka-->
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka.clients.version}</version> <!-- 替换为最新版本 -->
+            </dependency>
+
+            <!--sharding-jdbc-->
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+                <version>${sharding.starter.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
-    <build>
+    <!--<build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 
 </project>
 

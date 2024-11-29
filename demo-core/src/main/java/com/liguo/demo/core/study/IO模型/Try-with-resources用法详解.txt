@@ -1,0 +1,20 @@
+Try-with-resources 是 Java 7 引入的一种简化资源管理的语法，用于自动关闭实现了 AutoCloseable 接口的资源（例如文件流、数据库连接、网络连接等）。这可以有效避免因未关闭资源而导致的资源泄漏问题。
+
+从 Java 9 开始，try-with-resources 可以使用已经声明的资源，而不需要在 try 块中重新定义。
+
+基本语法
+
+try (ResourceType resource = new ResourceType()) {
+    // 使用资源的代码
+} catch (Exception e) {
+    // 处理异常
+}
+
+
+ResourceType 是一个实现了 AutoCloseable 或 Closeable 接口的类。
+ResourceType可以多个，用；分隔
+当 try-with-resources 管理多个资源时，资源的关闭顺序为逆序关闭（即先声明的资源后关闭）。
+
+
+在 try 块中，资源被使用，try 结束后资源会自动关闭，无需显式调用 close() 方法。
+如果 close() 方法抛出异常，它也会被捕获并处理。
