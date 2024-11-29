@@ -6,18 +6,23 @@ import cn.smallbun.screw.core.engine.EngineFileType;
 import cn.smallbun.screw.core.engine.EngineTemplateType;
 import cn.smallbun.screw.core.execute.DocumentationExecute;
 import cn.smallbun.screw.core.process.ProcessConfig;
+import com.alicp.jetcache.anno.config.EnableCreateCacheAnnotation;
+import com.alicp.jetcache.anno.config.EnableMethodCache;
+import com.liguo.demo.core.config.LoggingFilter;
 import com.liguo.demo.core.pojo.converter.CarConverter;
 import com.liguo.demo.core.pojo.dto.CarDTO;
 import com.liguo.demo.core.pojo.entity.CarDO;
 import com.liguo.demo.core.pojo.vo.Result;
+import com.liguo.demo.core.study.beanLoadType.Import2.EnableCartoon;
 import com.liguo.demo.core.thread.creatthread.ThreadUtil;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.annotation.MapperScan;
+import net.sf.cglib.core.DebuggingClassWriter;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,21 +30,38 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 
+// 多数据源的时候会排除因为这个是单数据源装配,然后手动注入数据源
+// @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 // 会自动加载当前类下所有文件
 @SpringBootApplication
 @RestController
 @Slf4j
 // 开启异步线程@Async注解能够生效
 @EnableAsync
-// 可以指定要扫描的Mapper类的包的路径
-@MapperScan(basePackages = "com.liguo.demo.core.dao")
+// 可以指定要扫描的Mapper类的包的路径, mapper接口加了@Mapper注解可以不需要添加扫描
+//@MapperScan(basePackages = "com.liguo.demo.core.dao")
+@EnableCartoon
+// jetcache启用缓存的主开关
+@EnableCreateCacheAnnotation
+@EnableMethodCache(basePackages = {"com.liguo.demo"})
+// 引入配置文件
+// @ImportResource(locations = "classpath:beans/beans-ws.xml")
+// @ServletComponentScan 使用@ServletComponentScan注解后，
+// Servlet（控制器）、Filter（过滤器）、Listener（监听器）可以直接通过@WebServlet、@WebFilter、@WebListener注解自动注册到Spring容器中，无需其他代码。
+// 可以新建一个Config类，@ServletComponentScan加载该类上，这样只会扫描该目录或其子目录的
+/**
+ * @see LoggingFilter 用了@ServletComponentScan可以不用@Component注解
+ */
 public class DemoCoreApplication {
 
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
+        // https://xie.infoq.cn/article/9a88ed4721c9c15c8b7bac6e7
+        System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "D:\\code");
         SpringApplication app = new SpringApplication(DemoCoreApplication.class);
-        app.setBannerMode(Banner.Mode.OFF);
-        app.run(args);
+        app.setBannerMode(Banner.Mode.CONSOLE);
+        ConfigurableApplicationContext ctx = app.run(args);
         log.info("^-^####################################################^-^");
         log.info("^-^##### Core service was started,{} senconds.#####^-^", System.currentTimeMillis() - startTime);
         log.info("^-^####################################################^-^");
@@ -72,9 +94,9 @@ public class DemoCoreApplication {
         //数据源
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        hikariConfig.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/demo");
-        hikariConfig.setUsername("demo");
-        hikariConfig.setPassword("demo");
+        hikariConfig.setJdbcUrl("jdbc:mysql://dubhedev-m.dbsit.sfcloud.local:3306/fp");
+        hikariConfig.setUsername("fp");
+        hikariConfig.setPassword("fp@200804");
         //设置可以获取tables remarks信息
         hikariConfig.addDataSourceProperty("useInformationSchema", "true");
         hikariConfig.setMinimumIdle(2);

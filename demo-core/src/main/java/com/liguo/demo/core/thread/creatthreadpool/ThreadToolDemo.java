@@ -23,6 +23,7 @@ public class ThreadToolDemo {
     /**
      * <p>创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程</p>
      * <p>线程池为无限大，当执行第二个任务时第一个任务已经完成，会复用执行第一个任务的线程，而不用每次新建线程。</p>
+     * 使用的是 SynchronousQueue。是一个不存储元素的特殊队列 {@link SynchronousQueue}
      */
     private final static ExecutorService cachedThreadPool = Executors.newCachedThreadPool(new DemoThreadFactory("ThreadToolDemo"));
 
@@ -66,13 +67,13 @@ public class ThreadToolDemo {
      * 4、keepAliveTime 超过核心线程的空闲线程存活时间
      */
     private static final ThreadPoolExecutor executorService = new ThreadPoolExecutor(
-            corePoolSize,
-            maximumPoolSize,
-            keepAliveTime,
-            timeUnit,
-            new LinkedBlockingQueue<>(maxQueueNum),
-            new DemoThreadFactory(DEMO_THREAD_NAME),
-            new ThreadPoolExecutor.CallerRunsPolicy());
+            corePoolSize, // 线程池核心线程数
+            maximumPoolSize, // 线程池最大线程数，达到最大值后线程池不会再增加线程；触发条件，达到核心线程且队列满了
+            keepAliveTime, // 线程池中超过corePoolSize数目的空闲线程最大存活时间
+            timeUnit, // 时间单位，秒（针对keepAliveTime）
+            new LinkedBlockingQueue<>(maxQueueNum),  // 工作线程等待队列，有界队列，大小200
+            new DemoThreadFactory(DEMO_THREAD_NAME), // 自定义线程工厂
+            new ThreadPoolExecutor.CallerRunsPolicy()); // 线程池满时的拒绝策略
 
 
     public static void main(String[] args) {
@@ -214,6 +215,10 @@ public class ThreadToolDemo {
         CompletableFuture<Void> all = CompletableFuture.allOf(futureList.toArray(new CompletableFuture[futureList.size()]));
         all.join();
         log.info("completableFutureTest结束,总耗时:{} 毫秒.", System.currentTimeMillis() - startTime);
+
+        // CompletableFuture.supplyAsync(() -> sayHello("12"), executorService);
+
+
         // 处理整个批次返回结果
         return "null";
     }

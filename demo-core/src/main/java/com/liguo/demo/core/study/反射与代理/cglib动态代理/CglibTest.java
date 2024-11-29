@@ -37,7 +37,10 @@ public class CglibTest {
         // public class CglibUserServiceImpl$$EnhancerByCGLIB$$13149ccf extends CglibUserServiceImpl implements Factory
         // 生成的代理类 继承了被代理类
         CglibUserServiceImpl proxy1 = (CglibUserServiceImpl) userServiceCGlib.getProxyInstance();
-        proxy1.addUser();
+        User user = new User();
+        user.setAge(27);
+        user.setName("夏利国");
+        proxy1.addUser(user, "xlg");
         // CglibUserServiceImpl proxy1 = (CglibUserServiceImpl) new UserServiceCGlib(real).getProxyInstance();
         // proxy1.addUser();
     }

@@ -30,5 +30,6 @@ public class CallableDemoTest {
         }
         log.info("CallableDemo 返回:{}", a);
         log.info("2222222222222");
+
     }
 }

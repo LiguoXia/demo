@@ -36,6 +36,8 @@ public class 代理测试类 {
         printClassInfo(java.time.Month.class);
         printClassInfo(String[].class);
         printClassInfo(int.class);*/
+
+        //printClassInfo(被代理类.class);
     }
 
     static void printClassInfo(Class cls) {

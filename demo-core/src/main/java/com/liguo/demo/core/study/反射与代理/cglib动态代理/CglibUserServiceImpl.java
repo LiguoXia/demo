@@ -9,8 +9,8 @@ package com.liguo.demo.core.study.反射与代理.cglib动态代理;
  * @since 0.0.1
  */
 public class CglibUserServiceImpl {
-    public String addUser() {
-        System.out.println("添加了一个用户");
+    public String addUser(User user, String str1) {
+        System.out.println("添加了一个用户" + user.toString() + ":" + str1);
         return "返回";
     }
 
