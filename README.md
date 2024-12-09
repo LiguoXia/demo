@@ -422,7 +422,7 @@ spring:
     #url: jdbc:mysql://tidb.6713cf6b.3ce9e91.ap-northeast-1.prod.aws.tidbcloud.com:4000/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
     #username: root
     #password: demo20201001
-    url: jdbc:mysql://192.168.18.26:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://192.168.18.22:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
     #url: jdbc:mysql://192.168.18.23:3306/fp?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
     username: liguo
     password: xlg123456
@@ -498,7 +498,7 @@ spring:
     # url: jdbc:mysql://tidb.6713cf6b.3ce9e91.ap-northeast-1.prod.aws.tidbcloud.com:4000/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
     # username: root
     # password: demo20201001
-    # url: jdbc:mysql://192.168.18.26:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    # url: jdbc:mysql://192.168.18.22:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
     # url: jdbc:mysql://192.168.18.23:3306/fp?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
     # username: liguo
     # password: xlg123456
@@ -510,7 +510,7 @@ spring:
     # 初始化大小，最小，最大(以下配置需要引入Druid Spring Boot Starter)
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://192.168.18.26:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+      url: jdbc:mysql://192.168.18.22:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
       username: liguo
       password: xlg123456
       # 初始化时建立物理连接的个数
@@ -676,16 +676,17 @@ yaml支持各种进制的书写，字符串配置最好加上双引号
 
 5、启动eureka
 
-| 服务         | 版本   | ip               | 端口                      | 启动命令                                           | 控制台地址                 | 说明                                |
-| ------------ | ------ | ---------------- | ------------------------- | -------------------------------------------------- | -------------------------- | ----------------------------------- |
-| mysql        | 8.0.32 | 192.168.18.26    | 3306                      | systemctl start mysqld                             |                            | 本地单机部署                        |
-| redis        | 7.2.0  | 192.168.18.34    | 6379                      | redis-server redis.conf                            |                            | 本地单机部署                        |
-| rocketmq     | 5.1.3  | 192.168.18.33-35 | 8080、9876 、10911        | docker start rmqnamesrv rocketmq-broker rmqconsole | http://192.168.18.33:8080/ | docker部署，server、broker、console |
-| nacos        | 2.4.2  | 192.168.18.33    | 8848                      | docker start nacos-standalone                      | http://192.168.18.33:8848/ | docker部署                          |
-| canal        | 1.1.8  | 192.168.18.36    | 8089、11110、11111、11112 | ./startup.sh、 ./startup.sh local                  | http://192.168.18.36:8089/ | 本地部署，admin、server             |
-| zookeeper    | 3.9.2  | 192.168.18.37    | 2181                      |                                                    |                            |                                     |
-| gitlab       | 17.3.3 | 192.168.18.37    | 80、443、222              |                                                    |                            |                                     |
-| elasticsearc | 8.7.0  | 192.168.18.37    | 9200、9300                |                                                    |                            |                                     |
+| 服务         | 版本   | ip               |      | 端口                      | 启动命令                                           | 控制台地址                 | 说明                                |
+| ------------ | ------ | ---------------- | ---- | ------------------------- | -------------------------------------------------- | -------------------------- | ----------------------------------- |
+| mysql        | 8.0.32 | 192.168.18.22    | 22   | 3306                      | systemctl start mysqld                             |                            | 本地单机部署                        |
+| redis        | 7.2.0  | 192.168.18.34    | 25   | 6379                      | redis-server redis.conf                            |                            | 本地单机部署                        |
+| rocketmq     | 5.1.3  | 192.168.18.33-35 | 23   | 8080、9876 、10911        | docker start rmqnamesrv rocketmq-broker rmqconsole | http://192.168.18.33:8080/ | docker部署，server、broker、console |
+| nacos        | 2.4.2  | 192.168.18.33    |      | 8848                      | docker start nacos-standalone                      | http://192.168.18.33:8848/ | docker部署                          |
+| canal        | 1.1.8  | 192.168.18.36    |      | 8089、11110、11111、11112 | ./startup.sh、 ./startup.sh local                  | http://192.168.18.36:8089/ | 本地部署，admin、server             |
+| zookeeper    | 3.9.2  | 192.168.18.37    | 24   | 2181                      |                                                    |                            |                                     |
+| gitlab       | 17.3.3 | 192.168.18.37    | 24   | 80、443、222              |                                                    |                            |                                     |
+| elasticsearc | 8.7.0  | 192.168.18.37    | 24   | 9200、9300                |                                                    |                            |                                     |
+| kafka        |        | 192.168.18.37    | 24   |                           |                                                    |                            |                                     |
 
 ## Springboot版本说明
 

@@ -12,7 +12,7 @@ spring:
         #  采用的数据库连接池，druid
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://192.168.18.26:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+        url: jdbc:mysql://192.168.18.22:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
         username: liguo
         password: xlg123456
         maxActive: 20
@@ -57,7 +57,7 @@ spring:
       sql:
         show: true
   redis:
-    host: 192.168.18.34
+    host: 192.168.18.25
     port: 6379
     password: 123456
 
@@ -107,7 +107,7 @@ rocketmq:
     pull-batch-size: 10
     # 设置最大重试次数为 3 次
     maxReconsumeTimes: 3
-  name-server: 192.168.18.35:9876
+  name-server: 192.168.18.23:9876
   producer:
     # 发送同一类消息的设置为同一个group，保证唯一
     group: groupDemo

@@ -11,7 +11,10 @@ package com.liguo.demo.core.study.java基础;
 public class String相关 {
 
     public static void main(String[] args) {
-
+        String a = "\uD840\uDC0B";
+        System.out.println(a);
+        //str();
+        printUnicode("夏利国Aa");
     }
 
     /**
@@ -31,6 +34,29 @@ public class String相关 {
      *
      */
     public static void str() {
+        // 初始 char数组容量为 初始话字符个数 + 16
+        StringBuilder sb = new StringBuilder("夏");
+        sb.append("你");
 
+        StringBuffer stringBuffer = new StringBuffer("你");
+        stringBuffer.append("爱我");
+    }
+
+    public static void printUnicode(String text) {
+
+        System.out.println("字符串: " + text);
+        System.out.println("字符的 Unicode 编码: ");
+
+        for (int i = 0; i < text.length(); i++) {
+            char ch = text.charAt(i);
+            int codePoint = text.codePointAt(i);
+
+            // 如果当前字符是高代理且下一个字符是低代理，则跳过下一个字符
+            if (Character.isHighSurrogate(ch) && i + 1 < text.length() && Character.isLowSurrogate(text.charAt(i + 1))) {
+                i++; // 跳过低代理
+            }
+
+            System.out.printf("字符: %s, Unicode: \\u%04X%n", new String(Character.toChars(codePoint)), codePoint);
+        }
     }
 }

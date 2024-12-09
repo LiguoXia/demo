@@ -13,7 +13,7 @@ import java.sql.*;
 public class JdbcSt {
     /**
      * 使用JDBC连接并操作mysql数据库
-     * url: jdbc:mysql://192.168.18.26:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+     * url: jdbc:mysql://192.168.18.22:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
      *       username: liguo
      *       password: xlg123456
      */
@@ -21,7 +21,7 @@ public class JdbcSt {
         // 数据库驱动类名的字符串
         String driver = "com.mysql.cj.jdbc.Driver";
         // 数据库连接串
-        String url = "jdbc:mysql://192.168.18.26:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8";
+        String url = "jdbc:mysql://192.168.18.22:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8";
         // 用户名
         String username = "liguo";
         // 密码

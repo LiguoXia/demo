@@ -40,7 +40,7 @@ public class TransactionProducer {
     @PostConstruct
     public void init() {
         producer = new TransactionMQProducer(producerGroup);
-        producer.setNamesrvAddr("192.168.18.35:9876");
+        producer.setNamesrvAddr("192.168.18.23:9876");
         producer.setSendMsgTimeout(Integer.MAX_VALUE);
         producer.setExecutorService(executor);
         producer.setTransactionListener(orderTransactionListener);
