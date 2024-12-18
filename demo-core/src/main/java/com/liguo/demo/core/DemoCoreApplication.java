@@ -94,9 +94,9 @@ public class DemoCoreApplication {
         //数据源
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        hikariConfig.setJdbcUrl("jdbc:mysql://dubhedev-m.dbsit.sfcloud.local:3306/fp");
-        hikariConfig.setUsername("fp");
-        hikariConfig.setPassword("fp@200804");
+        hikariConfig.setJdbcUrl("jdbc:mysql://????:3306/??");
+        hikariConfig.setUsername("????");
+        hikariConfig.setPassword("????");
         //设置可以获取tables remarks信息
         hikariConfig.addDataSourceProperty("useInformationSchema", "true");
         hikariConfig.setMinimumIdle(2);
@@ -114,7 +114,7 @@ public class DemoCoreApplication {
                 //生成模板实现
                 .produceType(EngineTemplateType.freemarker)
                 //自定义文件名称
-                .fileName("资金计划表设计说明书").build();
+                .fileName("表设计说明书").build();
 
         //忽略表
         ArrayList<String> ignoreTableName = new ArrayList<>();
@@ -145,7 +145,7 @@ public class DemoCoreApplication {
                 //版本
                 .version("1.0.0")
                 //描述
-                .description("资金计划表设计说明书")
+                .description("表设计说明书")
                 //数据源
                 .dataSource(dataSource)
                 //生成配置
